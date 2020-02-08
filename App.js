@@ -2,10 +2,13 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Home from "./screens/Home";
 
+import ArtworkInfo from "./src/components/Artwork/ArtworkInfo";
+
 export default function App() {
   return (
     <View style={styles.container}>
-      <Home />
+      {/* <Home /> */}
+      <ArtworkInfo/>
     </View>
   );
 }
