@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import Home from "./screens/Home";
+// import Home from "./screens/Home";
 
-import ArtworkInfo from "./src/components/Artwork/ArtworkInfo";
+import ArtworkInfo from "./src/tabs/Artwork/components/ArtworkInfo";
 
 export default function App() {
   return (
