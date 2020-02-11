@@ -8,7 +8,6 @@ const ArtworkTab = () => {
 
     const toggleModal = ()=>{
         setOpenModal(!openModal);
-        console.log(openModal);
     }
 
     return ( 
