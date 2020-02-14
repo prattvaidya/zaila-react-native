@@ -4,28 +4,29 @@ import axios from "axios";
 
 import ArtworkDetail from "zaila/src/tabs/Artwork/components/ArtworkDetail";
 
-const ArtworkInfo = () => {
-  const [artworkInfo, setArtworkInfo] = useState({
-    artworkId: 1,
-    exhibitionId: 123,
-    sensorId: "n123",
-    title: "The Pharao",
-    imageURL: "https://www.somewhere.com/egypt_exhibition/1.pgg",
-    artistName: "Cleopatra",
-    media: "PNG",
-    year: "2020",
-    artworkDetails: [
-      {
-        artworkDetailsId: 9,
+const ArtworkInfo = ({sensorId}) => {
+
+    const [artworkInfo,
+        setArtworkInfo] = useState({
         artworkId: 1,
-        description:
-          "The dog was the first animal to be domesticated, and has been selectively bred o" +
-          "ver millennia for various behaviors, sensory capabilities, and physical attribut" +
-          "es",
-        languageCode: "en-US"
-      }
-    ]
-  });
+        exhibitionId: 123,
+        sensorId: "n123",
+        title: "The Pharao",
+        imageURL: "https://www.somewhere.com/egypt_exhibition/1.pgg",
+        artistName: "Cleopatra",
+        media: "PNG",
+        year: "2020",
+        artworkDetails: [
+            {
+                artworkDetailsId: 9,
+                artworkId: 1,
+                description: "The dog was the first animal to be domesticated, and has been selectively bred o" +
+                    "ver millennia for various behaviors, sensory capabilities, and physical attribut" +
+                    "es",
+                languageCode: "en-US"
+            }
+        ]
+    })
 
   useEffect(() => {
     const URL = `https://zaila-backend.herokuapp.com/api/artwork/1`;
