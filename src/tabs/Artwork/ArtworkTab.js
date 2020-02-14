@@ -1,6 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import ArtworkInfo from "zaila/src/tabs/Artwork/components/ArtworkInfo";
+import ArtworkInfo from "./components/ArtworkInfo";
 import ArtworkHome from './screens/ArtworkHome';
 
 
