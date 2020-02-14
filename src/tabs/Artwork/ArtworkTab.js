@@ -1,25 +1,22 @@
-import React ,{useState} from 'react';
-import { View,Text,TouchableOpacity } from 'react-native';
-import ScannerModal from './screens/ScannerModal';
+import React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+import ArtworkInfo from "zaila/src/tabs/Artwork/components/ArtworkInfo";
+import ArtworkHome from './screens/ArtworkHome';
+
+
+const ArtworkStack = createStackNavigator();
 
 const ArtworkTab = () => {
 
-    const [openModal, setOpenModal] = useState(false);
 
-    const toggleModal = ()=>{
-        setOpenModal(!openModal);
-    }
+  return (
+    <ArtworkStack.Navigator>
+      <ArtworkStack.Screen name="ArtworkHome" component={ArtworkHome} />
+      <ArtworkStack.Screen name="ArtworkInfo" component={ArtworkInfo} />
+    </ArtworkStack.Navigator>
 
-    return ( 
-        <View>
-            <ScannerModal toggleModal={toggleModal}  isOpen={openModal}/>
-            <TouchableOpacity
-            onPress={toggleModal}
-            >
-            <Text>Scan QR code</Text>
-            </TouchableOpacity>
-        </View>
-     );
-}
- 
+      
+  );
+};
+
 export default ArtworkTab;

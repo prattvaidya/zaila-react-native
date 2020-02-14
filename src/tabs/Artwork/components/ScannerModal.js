@@ -30,7 +30,7 @@ const ScannerModal = ({isOpen, toggleModal}) => {
         // setScanned(true);
         // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
         const sensorId = data;
-        const URL = `https://zaila-backend.herokuapp.com/api/artwork/?sensorId=${sensorId}`
+        const URL = `https://zaila-backend.herokuapp.com/api/artwork/?sensorId=${sensorId}`;
         axios
             .get(URL, {
             headers: {

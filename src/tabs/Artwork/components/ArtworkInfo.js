@@ -8,46 +8,44 @@ const ArtworkInfo = ({sensorId}) => {
 
     const [artworkInfo,
         setArtworkInfo] = useState({
-        artworkId: 1,
-        exhibitionId: 123,
-        sensorId: "n123",
-        title: "The Pharao",
+        artworkId: null,
+        exhibitionId: null,
+        sensorId: "",
+        title: "Hello",
         imageURL: "https://www.somewhere.com/egypt_exhibition/1.pgg",
-        artistName: "Cleopatra",
-        media: "PNG",
-        year: "2020",
+        artistName: "",
+        media: "",
+        year: "",
         artworkDetails: [
             {
                 artworkDetailsId: 9,
                 artworkId: 1,
-                description: "The dog was the first animal to be domesticated, and has been selectively bred o" +
-                    "ver millennia for various behaviors, sensory capabilities, and physical attribut" +
-                    "es",
+                description: "",
                 languageCode: "en-US"
             }
         ]
     })
 
-    useEffect(() => {
-        // const URL = `https://zaila-backend.herokuapp.com/api/artwork/1`;
-        const URL = `https://zaila-backend.herokuapp.com/api/artwork/?sensorId=${sensorId}`
-        axios
-            .get(URL, {
-            headers: {
-                'X-Custom-Header': 'foobar'
-            }
-        })
-            .then(response => {
-                if (response.status === 200) {
-                    setArtworkInfo(response.data.artwork)
-                    // console.log(response.data[0].artwork)
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            })
+  useEffect(() => {
 
-    }, []);
+    const receiveSensorId = sensorId? sensorId: 'n123';
+    
+    const URL = `https://zaila-backend.herokuapp.com/api/artwork/?sensorId=${receiveSensorId}`;
+    axios
+      .get(URL, {
+        // headers: {
+        //   "X-Custom-Header": "foobar"
+        // }
+      })
+      .then(response => {
+        if (response.status === 200) {
+          setArtworkInfo(response.data.data);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
 
     return (
         <View style={styles.container}>

@@ -6,9 +6,9 @@ import RNPickerSelect from 'react-native-picker-select';
 const ArtworkDetail = ({descriptionInfo}) => {
 
     const [languageType,
-        setLanguageType] = useState(descriptionInfo[0].languageCode);
+        setLanguageType] = useState(descriptionInfo.languageCode);
 
-    const [content,setContent] = useState(descriptionInfo[0].description);
+    const [content,setContent] = useState(descriptionInfo.description);
     
     useEffect(()=>{
 
