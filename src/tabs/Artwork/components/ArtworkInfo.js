@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import ArtworkDetail from './ArtworkDetail';
 
-const ArtworkInfo = () => {
+const ArtworkInfo = ({sensorId}) => {
 
     const [artworkInfo,
         setArtworkInfo] = useState({
@@ -29,7 +29,8 @@ const ArtworkInfo = () => {
     })
 
     useEffect(() => {
-        const URL = `https://zaila-backend.herokuapp.com/api/artwork/1`;
+        // const URL = `https://zaila-backend.herokuapp.com/api/artwork/1`;
+        const URL = `https://zaila-backend.herokuapp.com/api/artwork/?sensorId=${sensorId}`
         axios
             .get(URL, {
             headers: {
@@ -38,7 +39,7 @@ const ArtworkInfo = () => {
         })
             .then(response => {
                 if (response.status === 200) {
-                    setArtworkInfo(response.data[0].artwork)
+                    setArtworkInfo(response.data.artwork)
                     // console.log(response.data[0].artwork)
                 }
             })

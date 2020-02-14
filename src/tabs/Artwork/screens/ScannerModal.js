@@ -7,6 +7,7 @@ import {
     Modal,
     StyleSheet
 } from 'react-native';
+import axios from 'axios';
 import {BarCodeScanner} from 'expo-barcode-scanner';
 
 import {globalStyles} from '../../../../styles/global';
@@ -26,8 +27,27 @@ const ScannerModal = ({isOpen, toggleModal}) => {
     }, []);
 
     const handleBarCodeScanned = ({type, data}) => {
-        setScanned(true);
-        alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+        // setScanned(true);
+        // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+        const sensorId = data;
+        const URL = `https://zaila-backend.herokuapp.com/api/artwork/?sensorId=${sensorId}`
+        axios
+            .get(URL, {
+            headers: {
+                'X-Custom-Header': 'foobar'
+            }
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    console.log(response.data)
+                    setScanned(false);
+                    toggleModal();
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
     };
 
     if (hasPermission === null) {
