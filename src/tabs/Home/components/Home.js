@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, View, Button, StyleSheet } from "react-native";
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
+import { globalStyles } from "zaila/styles/global";
 
 const Home = () => {
   // Determines if GPS permission is granted
@@ -77,7 +78,7 @@ const Home = () => {
   };
 
   return (
-    <View>
+    <View style={globalStyles.container}>
       {/* Display the button to request GPS if we don't have the permission */}
       {isGPSEnabled ? (
         <View>

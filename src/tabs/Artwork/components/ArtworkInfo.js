@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import {Text, View, StyleSheet, Button, Image} from 'react-native';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { Text, View, StyleSheet, Button, Image } from "react-native";
+import axios from "axios";
 
-import ArtworkDetail from './ArtworkDetail';
+import ArtworkDetail from "zaila/src/tabs/Artwork/components/ArtworkDetail";
 
 const ArtworkInfo = ({sensorId}) => {
 
@@ -47,46 +47,46 @@ const ArtworkInfo = ({sensorId}) => {
       });
   }, []);
 
-    return (
-        <View style={styles.container}>
-            <Image
-                style={{
-                width: 120,
-                height: 120
-            }}
-                source={{
-                uri: 'https://i.picsum.photos/id/1005/180/320.jpg'
-            }}/>
-            <View style={styles.infoContainer}>
-                <Text style={styles.artworkTitle}>{artworkInfo.title}</Text>
-                <Text style={styles.artistName}>{artworkInfo.artistName}</Text>
-                <ArtworkDetail descriptionInfo={artworkInfo.artworkDetails}/>
-            </View>
-        </View>
-    );
-}
+  return (
+    <View style={styles.container}>
+      <Image
+        style={{
+          width: 120,
+          height: 120
+        }}
+        source={{
+          uri: "https://i.picsum.photos/id/1005/180/320.jpg"
+        }}
+      />
+      <View style={styles.infoContainer}>
+        <Text style={styles.artworkTitle}>{artworkInfo.title}</Text>
+        <Text style={styles.artistName}>{artworkInfo.artistName}</Text>
+        <ArtworkDetail descriptionInfo={artworkInfo.artworkDetails} />
+      </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        flexWrap: 'wrap',
-        width: '100%'
-    },
-    infoContainer: {
-
-        width: '100%'
-    },
-    artworkTitle: {
-        textAlign: 'center',
-        fontSize: 32,
-        fontWeight: 'bold'
-    },
-    artistName: {
-        textAlign: 'center'
-    }
-})
+  container: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    flexWrap: "wrap",
+    width: "100%"
+  },
+  infoContainer: {
+    width: "100%"
+  },
+  artworkTitle: {
+    textAlign: "center",
+    fontSize: 32,
+    fontWeight: "bold"
+  },
+  artistName: {
+    textAlign: "center"
+  }
+});
 
 export default ArtworkInfo;
