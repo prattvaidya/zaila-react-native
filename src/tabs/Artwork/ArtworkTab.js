@@ -11,7 +11,7 @@ const ArtworkTab = () => {
 
   return (
     <ArtworkStack.Navigator>
-      <ArtworkStack.Screen name="ArtworkHome" component={ArtworkHome} />
+      <ArtworkStack.Screen  name="ArtworkHome" component={ArtworkHome} />
       <ArtworkStack.Screen name="ArtworkInfo" component={ArtworkInfo} />
     </ArtworkStack.Navigator>
 

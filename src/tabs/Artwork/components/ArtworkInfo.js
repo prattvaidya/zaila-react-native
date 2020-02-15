@@ -4,8 +4,12 @@ import axios from "axios";
 
 import ArtworkDetail from "zaila/src/tabs/Artwork/components/ArtworkDetail";
 
-const ArtworkInfo = ({sensorId}) => {
+const ArtworkInfo = ({route}) => {
 
+    const {sensorId} = route.params;
+    console.log('get id',sensorId);
+
+   
     const [artworkInfo,
         setArtworkInfo] = useState({
         artworkId: null,
@@ -28,7 +32,7 @@ const ArtworkInfo = ({sensorId}) => {
 
   useEffect(() => {
 
-    const receiveSensorId = sensorId? sensorId: 'n123';
+    const receiveSensorId = sensorId? sensorId: 'n124';
     
     const URL = `https://zaila-backend.herokuapp.com/api/artwork/?sensorId=${receiveSensorId}`;
     axios
@@ -55,7 +59,7 @@ const ArtworkInfo = ({sensorId}) => {
           height: 120
         }}
         source={{
-          uri: "https://i.picsum.photos/id/1005/180/320.jpg"
+          uri: artworkInfo.imageURL
         }}
       />
       <View style={styles.infoContainer}>
