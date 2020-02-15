@@ -10,15 +10,23 @@ const ArtworkDetail = ({descriptionInfo}) => {
 
     const [content,setContent] = useState(descriptionInfo[0].description);
     
+
     useEffect(()=>{
 
        const info = descriptionInfo.find(item=>{
             return item.languageCode === languageType
        })
-       
        info?setContent(info.description):setContent("");
 
     },[languageType])
+
+    //Stop speech when component Unmounted
+    useEffect(() => {
+       
+        return () => {
+            Speech.stop();
+        };
+    })
 
     const languageList = [
         {
@@ -38,11 +46,9 @@ const ArtworkDetail = ({descriptionInfo}) => {
 
     ]
 
-
-
     const speak = (content, languageCode) => {
         const thingToSay = content;
-        Speech.speak(thingToSay, {language: languageCode});
+        Speech.speak(thingToSay, {language: languageCode,rate:0.9});
     }
 
 
