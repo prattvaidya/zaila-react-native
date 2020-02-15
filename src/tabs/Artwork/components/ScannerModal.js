@@ -32,8 +32,6 @@ const ScannerModal = ({isOpen, toggleModal}) => {
 
     const handleBarCodeScanned = ({type, data}) => {
         setScanned(true);
-        // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-        console.log("get code",data);
         const sensorId = data;
         setScanned(false);
         toggleModal();
@@ -70,7 +68,7 @@ const ScannerModal = ({isOpen, toggleModal}) => {
                     : handleBarCodeScanned}
                     style={styles.cameraContainer}/>
                 <TouchableHighlight style={styles.closeButton} onPress={toggleModal}>
-                    <Text style={globalStyles.textWhite}>X</Text>
+                    <Text style={[globalStyles.textWhite,styles.closeButtonText]}>X</Text>
                 </TouchableHighlight>
                 </View>
             </View>
@@ -90,6 +88,10 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 10,
         right: 10
+    },
+    closeButtonText:{
+        fontSize:24,
+        fontWeight:'bold'
     }
 
 });
