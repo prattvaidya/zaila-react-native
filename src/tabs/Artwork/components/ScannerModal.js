@@ -9,10 +9,13 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import {BarCodeScanner} from 'expo-barcode-scanner';
+import { useNavigation } from '@react-navigation/native';
 
 import {globalStyles} from '../../../../styles/global';
 
 const ScannerModal = ({isOpen, toggleModal}) => {
+
+    const navigation = useNavigation();
 
     const [hasPermission,
         setHasPermission] = useState(null);
@@ -20,33 +23,21 @@ const ScannerModal = ({isOpen, toggleModal}) => {
         setScanned] = useState(false);
 
     useEffect(() => {
+        setScanned(false);
         (async() => {
             const {status} = await BarCodeScanner.requestPermissionsAsync();
             setHasPermission(status === 'granted');
         })();
-    }, []);
+    },[]);
 
     const handleBarCodeScanned = ({type, data}) => {
-        // setScanned(true);
-        // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+        setScanned(true);
         const sensorId = data;
-        const URL = `https://zaila-backend.herokuapp.com/api/artwork/?sensorId=${sensorId}`
-        axios
-            .get(URL, {
-            headers: {
-                'X-Custom-Header': 'foobar'
-            }
-        })
-            .then(response => {
-                if (response.status === 200) {
-                    console.log(response.data)
-                    setScanned(false);
-                    toggleModal();
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        setScanned(false);
+        toggleModal();
+        navigation.push('ArtworkInfo',{
+            sensorId:sensorId
+        });
 
     };
 
@@ -58,6 +49,7 @@ const ScannerModal = ({isOpen, toggleModal}) => {
     }
 
     return (
+
         <Modal
             animationType="slide"
             transparent={false}
@@ -76,7 +68,7 @@ const ScannerModal = ({isOpen, toggleModal}) => {
                     : handleBarCodeScanned}
                     style={styles.cameraContainer}/>
                 <TouchableHighlight style={styles.closeButton} onPress={toggleModal}>
-                    <Text style={globalStyles.textWhite}>X</Text>
+                    <Text style={[globalStyles.textWhite,styles.closeButtonText]}>X</Text>
                 </TouchableHighlight>
                 </View>
             </View>
@@ -96,6 +88,10 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 10,
         right: 10
+    },
+    closeButtonText:{
+        fontSize:24,
+        fontWeight:'bold'
     }
 
 });

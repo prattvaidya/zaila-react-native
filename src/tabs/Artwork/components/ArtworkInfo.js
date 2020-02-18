@@ -1,92 +1,107 @@
-import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button, Image } from "react-native";
+import React, {useState, useEffect} from "react";
+import {Text, View, StyleSheet, Image} from "react-native";
 import axios from "axios";
-
+import Loading from '../../../shared/Loading';
 import ArtworkDetail from "zaila/src/tabs/Artwork/components/ArtworkDetail";
 
-const ArtworkInfo = ({sensorId}) => {
+const ArtworkInfo = ({route}) => {
+
+    const {sensorId} = route.params;
+
+    const [isReady,
+        setIsReady] = useState(false);
 
     const [artworkInfo,
         setArtworkInfo] = useState({
-        artworkId: 1,
-        exhibitionId: 123,
-        sensorId: "n123",
-        title: "The Pharao",
+        artworkId: null,
+        exhibitionId: null,
+        sensorId: "",
+        title: "Hello",
         imageURL: "https://www.somewhere.com/egypt_exhibition/1.pgg",
-        artistName: "Cleopatra",
-        media: "PNG",
-        year: "2020",
+        artistName: "",
+        media: "",
+        year: "",
         artworkDetails: [
             {
                 artworkDetailsId: 9,
                 artworkId: 1,
-                description: "The dog was the first animal to be domesticated, and has been selectively bred o" +
-                    "ver millennia for various behaviors, sensory capabilities, and physical attribut" +
-                    "es",
+                description: "",
                 languageCode: "en-US"
             }
         ]
     })
 
-  useEffect(() => {
-    const URL = `https://zaila-backend.herokuapp.com/api/artwork/1`;
-    axios
-      .get(URL, {
-        headers: {
-          "X-Custom-Header": "foobar"
-        }
-      })
-      .then(response => {
-        if (response.status === 200) {
-          setArtworkInfo(response.data[0].artwork);
-          // console.log(response.data[0].artwork)
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
+    useEffect(() => {
 
-  return (
-    <View style={styles.container}>
-      <Image
-        style={{
-          width: 120,
-          height: 120
-        }}
-        source={{
-          uri: "https://i.picsum.photos/id/1005/180/320.jpg"
-        }}
-      />
-      <View style={styles.infoContainer}>
-        <Text style={styles.artworkTitle}>{artworkInfo.title}</Text>
-        <Text style={styles.artistName}>{artworkInfo.artistName}</Text>
-        <ArtworkDetail descriptionInfo={artworkInfo.artworkDetails} />
-      </View>
-    </View>
-  );
+        const receiveSensorId = sensorId
+            ? sensorId
+            : 'n124';
+
+        const URL = `https://zaila-backend.herokuapp.com/api/artwork/?sensorId=${receiveSensorId}`;
+        axios
+            .get(URL, {
+            // headers: {   "X-Custom-Header": "foobar" }
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    setArtworkInfo(response.data.data);
+                    setIsReady(true);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }, []);
+
+    return (
+        <View style={styles.container}>
+            {isReady
+                ? (
+                    <View>
+                        <Image
+                            style={styles.artworkImage}
+                            source={{
+                            uri: artworkInfo.imageURL
+                        }}/>
+                        <View style={styles.infoContainer}>
+                            <Text style={styles.artworkTitle}>{artworkInfo.title}</Text>
+                            <Text style={styles.artistName}>{artworkInfo.artistName}</Text>
+                            <ArtworkDetail descriptionInfo={artworkInfo.artworkDetails}/>
+                        </View>
+                    </View>
+                )
+                : (
+                    <Loading/>
+                )}
+
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "flex-start",
-    flexWrap: "wrap",
-    width: "100%"
-  },
-  infoContainer: {
-    width: "100%"
-  },
-  artworkTitle: {
-    textAlign: "center",
-    fontSize: 32,
-    fontWeight: "bold"
-  },
-  artistName: {
-    textAlign: "center"
-  }
+    container: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        flexWrap: "wrap",
+        width: "100%"
+    },
+    infoContainer: {
+        width: "100%",
+    },
+    artworkTitle: {
+        textAlign: "center",
+        fontSize: 32,
+        fontWeight: "bold"
+    },
+    artistName: {
+        textAlign: "center"
+    },
+    artworkImage:{
+        width:300,
+        height:200
+    }
 });
 
 export default ArtworkInfo;
