@@ -4,7 +4,7 @@ import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
 import { globalStyles } from "zaila/styles/global";
 
-const Home = () => {
+const Home = ({navigation}) => {
   // Determines if GPS permission is granted
   const [isGPSEnabled, setIsGPSEnabled] = useState(false);
 
@@ -107,6 +107,7 @@ const Home = () => {
       ) : (
         <Button title="Request GPS Permission" onPress={getPermission} />
       )}
+      <Button title="ExhibitionDetail" onPress={()=>{navigation.navigate('ExhibitionDetail')}} />
     </View>
   );
 };
