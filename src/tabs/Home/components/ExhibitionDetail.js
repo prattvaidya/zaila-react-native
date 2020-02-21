@@ -31,9 +31,10 @@ const ExhibitionDetail = () => {
     const dimensions = Dimensions.get('window');
     const imageHeight = Math.round(dimensions.width * 9 / 16);
     const imageWidth = dimensions.width;
-
+    const descriptionHeight = dimensions.height*0.4;
+    
     const renderDetail = getDetail?
-    (<View>
+    (<View style={styles.detailContainer}>
         <View style={styles.detailHeader}>
             <Text style={styles.title}>{exhibitionDetail.name}</Text>
             <Text style={styles.datePeriod}>{moment(exhibitionDetail.startDate).format("MMMM Do, YYYY")} - {moment(exhibitionDetail.endDate).format("MMMM Do, YYYY")}</Text>
@@ -43,9 +44,11 @@ const ExhibitionDetail = () => {
                 source={{uri:exhibitionDetail.imageURL}}/>
             </View>
         </View>
-        <ScrollView style={styles.descriptionContainer}>
-        <Text >{exhibitionDetail.description}</Text>
+        <View style={[styles.descriptionContainer,{height:descriptionHeight}]}>
+        <ScrollView >
+        <Text >{exhibitionDetail.description.replace('\\n','\n\n')}</Text>
         </ScrollView>
+        </View>
     </View>
     )
     :
@@ -62,6 +65,9 @@ const ExhibitionDetail = () => {
 
 
 const styles = StyleSheet.create({
+    detailContainer:{
+
+    },
     detailHeader:{
       
     }
@@ -84,7 +90,7 @@ const styles = StyleSheet.create({
        marginVertical:8,
        backgroundColor:'lightgrey',
        padding:8,
-       borderRadius:10
+       borderRadius:10,
    }
 
 })
