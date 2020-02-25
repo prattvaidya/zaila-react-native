@@ -28,18 +28,25 @@ export const globalStyles = StyleSheet.create({
     marginTop: 6,
     textAlign: "center"
   },
-  widget:{
-    backgroundColor:"hotpink",
-    position: 'absolute',
-    bottom:40,
-    right:0,
-    padding:10
+  widget: {
+    backgroundColor: "hotpink",
+    position: "absolute",
+    bottom: 40,
+    right: 0,
+    padding: 10
   },
-  textCenter:{
-    textAlign:'center'
+  textCenter: {
+    textAlign: "center"
   },
-  textWhite:{
-    color:'white'
+  textWhite: {
+    color: "white"
+  },
+  container: {
+    flex: 1,
+    padding: 20
+  },
+  titleText: {
+    fontSize: 18,
+    color: "#333"
   }
 });
-
