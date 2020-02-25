@@ -9,7 +9,7 @@ const HomeStack = createStackNavigator();
 
 const HomeTab = () => {
   return (
-    <HomeStack.Navigator>
+    <HomeStack.Navigator headerMode="none">
       <HomeStack.Screen name="Home" component={Home} />
       <HomeStack.Screen name="ExhibitionDetail" component={ExhibitionDetail} />
     </HomeStack.Navigator>

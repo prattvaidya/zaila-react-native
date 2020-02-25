@@ -24,7 +24,7 @@ function TabNavigator({ state, descriptors, navigation }) {
         } else if (route.name === "Profile") {
           iconName = "user";
         }
-        const icon = <FontAwesome name={iconName} size={32} color="white" />;
+        const icon = <FontAwesome name={iconName} size={26} color="white" />;
 
         const isFocused = state.index === index;
 
@@ -82,21 +82,21 @@ const styles = StyleSheet.create({
   tabItem: {
     margin: 5,
     padding: 20,
-    height: 90,
-    width: 90,
+    height: 60,
+    width: 60,
     borderRadius: 50,
     backgroundColor: "coral",
     justifyContent: "center",
     alignItems: "center"
   },
-  Artwork: {
-    bottom: 90,
-    left: -80
-  },
-  Profile: {
-    bottom: 20,
-    left: -110
-  }
+  // Artwork: {
+  //   bottom: 90,
+  //   left: -80
+  // },
+  // Profile: {
+  //   bottom: 20,
+  //   left: -110
+  // }
 });
 
 export default TabNavigator;
