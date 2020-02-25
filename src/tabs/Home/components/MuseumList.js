@@ -7,9 +7,9 @@ import {
   ScrollView,
   Button
 } from "react-native";
-import * as Animatable from "react-native-animatable";
 
-const MuseumList = () => {
+
+const MuseumList = ({navigation}) => {
   const [scrollOffsetY, setScrollOffsetY] = useState(0);
 
   const [museums, setMuseums] = useState([
@@ -107,6 +107,7 @@ const MuseumList = () => {
         {museums.map(museum => (
           <TouchableOpacity
             key={museum.key}
+            onPress={()=>{navigation.navigate('ExhibitionDetail')}}
             onLayout={event => {
               museums.find(m => m.key === museum.key).y =
                 event.nativeEvent.layout.y;

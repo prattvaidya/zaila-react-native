@@ -5,9 +5,9 @@ import * as Permissions from "expo-permissions";
 import { globalStyles } from "zaila/styles/global";
 import MuseumList from "zaila/src/tabs/Home/components/MuseumList";
 
-const Home = () => (
+const Home = ({navigation}) => (
   <View style={globalStyles.container}>
-    <MuseumList />
+    <MuseumList navigation={navigation} />
   </View>
 );
 
