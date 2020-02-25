@@ -18,7 +18,7 @@ const ArtworkDetail = ({descriptionInfo}) => {
        })
        info?setContent(info.description):setContent("");
 
-    },[languageType])
+    },[descriptionInfo])
 
     //Stop speech when component Unmounted
     useEffect(() => {

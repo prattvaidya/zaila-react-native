@@ -7,15 +7,12 @@ import {
     Modal,
     StyleSheet
 } from 'react-native';
-import axios from 'axios';
 import {BarCodeScanner} from 'expo-barcode-scanner';
-import { useNavigation } from '@react-navigation/native';
+
 
 import {globalStyles} from '../../../../styles/global';
 
-const ScannerModal = ({isOpen, toggleModal}) => {
-
-    const navigation = useNavigation();
+const ScannerModal = ({isOpen, toggleModal,toggleArtworkModal,setSensorId}) => {
 
     const [hasPermission,
         setHasPermission] = useState(null);
@@ -35,9 +32,9 @@ const ScannerModal = ({isOpen, toggleModal}) => {
         const sensorId = data;
         setScanned(false);
         toggleModal();
-        navigation.push('ArtworkInfo',{
-            sensorId:sensorId
-        });
+
+        setSensorId(sensorId);
+        toggleArtworkModal();
 
     };
 
