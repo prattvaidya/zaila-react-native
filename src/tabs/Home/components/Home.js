@@ -1,23 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { Text, View, Button, StyleSheet } from "react-native";
-import * as Location from "expo-location";
-import * as Permissions from "expo-permissions";
+import React, { useState } from "react";
+import { View, StyleSheet } from "react-native";
 import { globalStyles } from "zaila/styles/global";
 import MuseumList from "zaila/src/tabs/Home/components/MuseumList";
+import GPS from "zaila/src/tabs/Home/components/GPS";
 
-const Home = ({navigation}) => (
-  <View style={globalStyles.container}>
-    <MuseumList navigation={navigation} />
-  </View>
-);
+const Home = ({ navigation }) => {
+  // Stores the user's address (street, city, etc.)
+  const [address, setAddress] = useState({});
 
-const styles = StyleSheet.create({
-  btn: {
-    alignSelf: "stretch"
-  },
-  locationInfo: {
-    alignItems: "center"
-  }
-});
+  return (
+    <View style={globalStyles.container}>
+      <GPS address={address} setAddress={setAddress} />
+      <MuseumList city={address.city} navigation={navigation} />
+    </View>
+  );
+};
 
 export default Home;

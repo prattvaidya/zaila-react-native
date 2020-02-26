@@ -1,121 +1,157 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
+  Image,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
-  Button
+  ScrollView
 } from "react-native";
+import { get } from "zaila/src/services/zaila-api.js";
+import staticMuseums from "zaila/src/static/museums";
 
-
-const MuseumList = ({navigation}) => {
+const MuseumList = ({ city, navigation }) => {
   const [scrollOffsetY, setScrollOffsetY] = useState(0);
+  const [museums, setMuseums] = useState([]);
 
-  const [museums, setMuseums] = useState([
-    {
-      title: "Zelda, Breath of Fresh Air",
-      desc: "Lorem ipsum",
-      key: 1
-    },
-    {
-      title: "Gotta catch them all (again)",
-      desc: "Lorem ipsum",
-      key: 2
-    },
-    {
-      title: 'Not So "Final Fantasy"',
-      desc: "Lorem ipsum",
-      key: 3
-    },
-    {
-      title: 'Not So "Final Fantasy2"',
-      desc: "Lorem ipsum",
-      key: 4
-    },
-    {
-      title: 'Not So "Final Fantasy3"',
-      desc: "Lorem ipsum",
-      key: 5
-    },
-    {
-      title: 'Not So "Final Fantasy4"',
-      desc: "Lorem ipsum",
-      key: 6
-    },
-    {
-      title: 'Not So "Final Fantasy5"',
-      desc: "Lorem ipsum",
-      key: 7
-    },
-    {
-      title: 'Not So "Final Fantasy6"',
-      desc: "Lorem ipsum",
-      key: 8
-    },
-    {
-      title: 'Not So "Final Fantasy7"',
-      desc: "Lorem ipsum",
-      key: 9
-    },
-    {
-      title: 'Not So "Final Fantasy8"',
-      desc: "Lorem ipsum",
-      key: 10
-    },
-    {
-      title: 'Not So "Final Fantasy9"',
-      desc: "Lorem ipsum",
-      key: 11
-    },
-    {
-      title: 'Not So "Final Fantasy10"',
-      desc: "Lorem ipsum",
-      key: 12
-    },
-    {
-      title: 'Not So "Final Fantasy11"',
-      desc: "Lorem ipsum",
-      key: 13
-    },
-    {
-      title: 'Not So "Final Fantasy12"',
-      desc: "Lorem ipsum",
-      key: 14
-    },
-    {
-      title: 'Not So "Final Fantasy13"',
-      desc: "Lorem ipsum",
-      key: 15
+  useEffect(() => {
+    if (city) {
+      get(`museum?city=${city}`)
+        .then(res => setMuseums(staticMuseums))
+        .catch(err => console.log(err));
     }
-  ]);
+  }, [city]);
 
-  const padding = (key, scroll) => {
-    const y = museums.find(museum => museum.key === key).y;
+  const padding = (museumId, scroll, index) => {
+    const y = museums.find(({ museum }) => museum.museumId === museumId).y;
+    const pos = y - scroll;
+    const cutoff = 350;
     return {
-      marginLeft: y - scroll > 425 || (!y && key > 8) ? "50%" : 0
+      marginLeft:
+        pos > cutoff || (!y && index > 2) ? `${100 - (cutoff / pos) * 100}%` : 0
     };
+  };
+
+  const descVisibility = (museumId, scroll, index) => {
+    const y = museums.find(({ museum }) => museum.museumId === museumId).y;
+    return {
+      display: y - scroll > 425 || (!y && index > 2) ? "none" : "flex"
+    };
+  };
+
+  const imgAlignment = (museumId, scroll, index) => {
+    const y = museums.find(({ museum }) => museum.museumId === museumId).y;
+    return y - scroll > 425 || (!y && index > 2)
+      ? { justifyContent: "center" }
+      : {};
+  };
+
+  const imgInnerAlignment = (museumId, scroll, index) => {
+    const y = museums.find(({ museum }) => museum.museumId === museumId).y;
+    return y - scroll > 425 || (!y && index > 2)
+      ? { flex: 1, alignItems: "center" }
+      : {};
+  };
+
+  const headerFont = (museumId, scroll, index) => {
+    const y = museums.find(({ museum }) => museum.museumId === museumId).y;
+    return y - scroll > 425 || (!y && index > 2)
+      ? { fontSize: 12 }
+      : { fontSize: 24 };
+  };
+
+  const addrFont = (museumId, scroll, index) => {
+    const y = museums.find(({ museum }) => museum.museumId === museumId).y;
+    return y - scroll > 425 || (!y && index > 2)
+      ? { fontSize: 10 }
+      : { fontSize: 12 };
   };
 
   return (
     <View style={styles.museumContainer}>
+      <Text style={styles.searchBox}>
+        Placeholder for Search by Museum Name
+      </Text>
       <ScrollView
         style={styles.museumList}
-        onScroll={event => setScrollOffsetY(event.nativeEvent.contentOffset.y)}
-        scrollEventThrottle={16}
+        onScroll={event => {
+          setScrollOffsetY(event.nativeEvent.contentOffset.y);
+        }}
+        scrollEventThrottle={1}
       >
-        {museums.map(museum => (
+        {museums.map(({ museum }, index) => (
           <TouchableOpacity
-            key={museum.key}
-            onPress={()=>{navigation.navigate('ExhibitionDetail')}}
+            key={museum.museumId}
+            onPress={() => {
+              navigation.navigate("ExhibitionDetail");
+            }}
             onLayout={event => {
-              museums.find(m => m.key === museum.key).y =
-                event.nativeEvent.layout.y;
+              museums.find(
+                ({ museum: m }) => m.museumId === museum.museumId
+              ).y = event.nativeEvent.layout.y;
               setMuseums(museums);
             }}
           >
-            <View style={[styles.museum, padding(museum.key, scrollOffsetY)]}>
-              <Text>{museum.title}</Text>
+            <View
+              style={[
+                styles.museum,
+                padding(museum.museumId, scrollOffsetY, index)
+              ]}
+            >
+              <View style={[styles.museumHeader]}>
+                <Text
+                  style={[
+                    styles.museumName,
+                    styles.alignCenter,
+                    headerFont(museum.museumId, scrollOffsetY, index)
+                  ]}
+                >
+                  {museum.name}
+                </Text>
+                <Text
+                  style={[
+                    styles.paraTextSize,
+                    styles.alignCenter,
+                    addrFont(museum.museumId, scrollOffsetY, index)
+                  ]}
+                >
+                  {museum.address} - {museum.city}, {museum.province}
+                </Text>
+              </View>
+              <View
+                style={[
+                  styles.museumInfo,
+                  imgAlignment(museum.museumId, scrollOffsetY, index)
+                ]}
+              >
+                <View
+                  style={[
+                    styles.museumImgWrapper,
+                    imgInnerAlignment(museum.museumId, scrollOffsetY, index)
+                  ]}
+                >
+                  <Image
+                    style={styles.museumImg}
+                    source={{ uri: museum.imageURL }}
+                  />
+                </View>
+                <View
+                  style={[
+                    styles.museumDescWrapper,
+                    descVisibility(museum.museumId, scrollOffsetY, index)
+                  ]}
+                >
+                  <Text style={styles.paraTextSize}>{museum.description}</Text>
+                  <View>
+                    <Text style={[styles.paraTextSize, styles.featuredHeading]}>
+                      Current featuring:
+                    </Text>
+                    <Text style={styles.paraTextSize}>
+                      Cindy Sherman and 3 more Exhibitions
+                    </Text>
+                  </View>
+                </View>
+              </View>
             </View>
           </TouchableOpacity>
         ))}
@@ -125,13 +161,61 @@ const MuseumList = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  searchBox: {
+    padding: 10,
+    borderWidth: 1
+  },
   museumList: {
-    paddingTop: 40
+    paddingTop: 20
   },
   museum: {
-    padding: 15,
-    marginTop: 5,
-    borderWidth: 2
+    marginBottom: 15
+  },
+  alignCenter: {
+    textAlign: "center"
+  },
+  museumHeader: {
+    backgroundColor: "#C7C7C7",
+    padding: 5,
+    borderRadius: 10,
+    zIndex: 1
+  },
+  museumName: {
+    fontSize: 24
+  },
+  paraTextSize: {
+    fontSize: 12
+  },
+  museumInfo: {
+    flex: 1,
+    flexDirection: "row"
+  },
+  museumImgWrapper: {
+    flexBasis: "20%",
+    zIndex: 2
+  },
+  museumImg: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    borderWidth: 4,
+    borderColor: "#E5E5E5"
+  },
+  museumDescWrapper: {
+    backgroundColor: "#E5E5E5",
+    padding: 10,
+    paddingTop: 15,
+    paddingLeft: 60,
+    flexBasis: "75%",
+    flexGrow: 1,
+    zIndex: 0,
+    borderRadius: 10,
+    marginTop: -10,
+    marginLeft: -25,
+    justifyContent: "space-between"
+  },
+  featuredHeading: {
+    fontWeight: "bold"
   }
 });
 

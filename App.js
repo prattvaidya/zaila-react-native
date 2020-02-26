@@ -12,6 +12,11 @@ import HomeTab from "zaila/src/tabs/Home/HomeTab";
 import ArtworkTab from "zaila/src/tabs/Artwork/ArtworkTab";
 import ProfileTab from "zaila/src/tabs/Profile/ProfileTab";
 
+// Set up the base URL for axios
+import { ZAILA_API_URL } from "react-native-dotenv";
+import axios from "axios";
+axios.defaults.baseURL = ZAILA_API_URL;
+
 const Tab = createBottomTabNavigator();
 
 export default function App() {
