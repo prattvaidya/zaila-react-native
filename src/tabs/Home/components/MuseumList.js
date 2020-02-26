@@ -28,7 +28,11 @@ const MuseumList = ({ city, navigation }) => {
     const cutoff = 350;
     return {
       marginLeft:
-        pos > cutoff || (!y && index > 2) ? `${100 - (cutoff / pos) * 100}%` : 0
+        !y && index > 2
+          ? "50%"
+          : pos > cutoff
+          ? `${100 - (cutoff / pos) * 100}%`
+          : 0
     };
   };
 
