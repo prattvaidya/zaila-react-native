@@ -44,6 +44,7 @@ const ExhibitionDetail = () => {
                 style={{ height: imageHeight, width: imageWidth }}
                 source={{uri:exhibitionDetail.imageURL}}/>
             </View>
+            <Text>{exhibitionDetail.exhibitionProgress}</Text>
         </View>
         <View style={[styles.descriptionContainer,{height:descriptionHeight}]}>
         <ScrollView >
