@@ -3,6 +3,8 @@ import {Text, View, StyleSheet, Image, Dimensions,Modal,TouchableHighlight} from
 import axios from "axios";
 import Loading from '../../../shared/Loading';
 import ArtworkDetail from "zaila/src/tabs/Artwork/components/ArtworkDetail";
+import BottomSpeaker from './BottomSpeaker';
+import { FontAwesome } from '@expo/vector-icons';
 
 import {globalStyles} from '../../../../styles/global';
 
@@ -33,7 +35,7 @@ const ArtworkInfoModal = ({sensorId,isOpenArtworkModal,toggleArtworkModal}) => {
     })
 
     useEffect(() => {
-        console.log('Get ID from parent',sensorId);
+        // console.log('Get ID from parent',sensorId);
         const receiveSensorId = sensorId? sensorId: 'n124';
 
         const URL = `https://zaila-backend.herokuapp.com/api/artwork/?sensorId=${receiveSensorId}`;
@@ -66,7 +68,7 @@ const ArtworkInfoModal = ({sensorId,isOpenArtworkModal,toggleArtworkModal}) => {
                 ? (
                     <View style={styles.artworkBlock}>
                         <Image
-                               style={{ height: imageHeight, width: imageWidth }}
+                               style={{ height: imageHeight, width: imageWidth,marginTop:32 }}
                             // style={styles.artworkImage}
                             source={{
                             uri: artworkInfo.imageURL
@@ -77,8 +79,9 @@ const ArtworkInfoModal = ({sensorId,isOpenArtworkModal,toggleArtworkModal}) => {
                             <ArtworkDetail descriptionInfo={artworkInfo.artworkDetails}/>
                         </View>
                         <TouchableHighlight style={styles.closeButton} onPress={toggleArtworkModal}>
-                            <Text style={[globalStyles.textWhite,styles.closeButtonText]}>X</Text>
+                            <FontAwesome name="close" size={32} color="black"/>
                         </TouchableHighlight>
+                        <BottomSpeaker title={artworkInfo.title} artist={artworkInfo.artistName} content={artworkInfo.artworkDetails}/>
                     </View>
                 )
                 : (
@@ -97,22 +100,30 @@ const styles = StyleSheet.create({
         alignItems: "flex-start",
         flexWrap: "wrap",
         width: "100%",
-        position: "relative"
+        position: "relative",
+       
+
     },
     artworkBlock:{
-        paddingTop:20
+        paddingTop:20,
+        position:'relative',
+        height:'100%'
     }
     ,
     infoContainer: {
         width: "100%",
+        backgroundColor:'lightgrey',
+        height:"52%"
     },
     artworkTitle: {
         textAlign: "center",
         fontSize: 32,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        textTransform:'uppercase'
     },
     artistName: {
-        textAlign: "center"
+        textAlign: "center",
+        textTransform:'uppercase'
     },
     artworkImage:{
         width:300,
@@ -120,13 +131,9 @@ const styles = StyleSheet.create({
     },
     closeButton: {
         position: 'absolute',
-        top: 10,
-        right: 10
+        top: 16,
+        left: 10
     },
-    closeButtonText:{
-        fontSize:24,
-        fontWeight:'bold'
-    }
 });
 
 export default ArtworkInfoModal;

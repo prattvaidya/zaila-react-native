@@ -18,8 +18,9 @@ const ExhibitionDetail = () => {
         })
             .then(response => {
                 if (response.status === 200) {
-                    console.log(response.data.data);
-                    setExhibitionDetail(response.data.data.exhibition);
+                    console.log(response.data[0])
+                    // console.log(response.data);
+                    setExhibitionDetail(response.data[0].exhibition);
                     setGetDetail(true);
                 }
             })

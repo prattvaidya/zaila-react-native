@@ -32,7 +32,7 @@ const ArtworkHome = () => {
         >
         <Text  style={styles.button}>Scan QR code</Text>
         </TouchableOpacity>
-
+        <TouchableOpacity onPress={toggleArtworkModal}><Text>Artwork</Text></TouchableOpacity>
         </View>
      );
 }

@@ -1,6 +1,7 @@
 import React, {useState ,useEffect} from 'react';
-import {Text, View, StyleSheet, Button} from 'react-native';
+import {Text, View, StyleSheet, ScrollView} from 'react-native';
 import * as Speech from 'expo-speech';
+import BottomSpeaker from './BottomSpeaker';
 import RNPickerSelect from 'react-native-picker-select';
 
 const ArtworkDetail = ({descriptionInfo}) => {
@@ -20,13 +21,7 @@ const ArtworkDetail = ({descriptionInfo}) => {
 
     },[descriptionInfo])
 
-    //Stop speech when component Unmounted
-    useEffect(() => {
-       
-        return () => {
-            Speech.stop();
-        };
-    })
+
 
     const languageList = [
         {
@@ -46,30 +41,38 @@ const ArtworkDetail = ({descriptionInfo}) => {
 
     ]
 
-    const speak = (content, languageCode) => {
-        const thingToSay = content;
-        Speech.speak(thingToSay, {language: languageCode,rate:0.9});
-    }
+    //Stop speech when component Unmounted
+    useEffect(() => {
+        return () => {
+            Speech.stop();
+        };
+    })
 
 
     return (
-        <View>
-            <RNPickerSelect
+        <View style={styles.container}>
+            {/* <RNPickerSelect
                 placeholder={{label:"Select Language",value:"en-US"}}
                 onValueChange={(value) => setLanguageType(value)}
-                items={languageList}/> 
+                items={languageList}/>  */}
+                <View style={styles.scrollContainer}>
+                <ScrollView >
                 <Text >{content}</Text>
-                <Button
-                    onPress={() => speak(content, languageType)}
-                    title="Play"/>
+                </ScrollView>
+                </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        width: '100%'
+        position:'relative',
+        width: '100%',
+        height:'100%',
+        
+    },
+    scrollContainer:{
+        padding:8,
     }
 })
 
