@@ -18,7 +18,8 @@ const ExhibitionDetail = () => {
         })
             .then(response => {
                 if (response.status === 200) {
-                    console.log(response.data[0])
+                    //Change later baed on the endpoint change
+                    // console.log(response.data[0])
                     // console.log(response.data);
                     setExhibitionDetail(response.data[0].exhibition);
                     setGetDetail(true);
@@ -33,7 +34,7 @@ const ExhibitionDetail = () => {
     const dimensions = Dimensions.get('window');
     const imageHeight = Math.round(dimensions.width * 9 / 16);
     const imageWidth = dimensions.width;
-    const descriptionHeight = dimensions.height*0.35;
+    const descriptionHeight = dimensions.height*0.32;
     
     const renderDetail = getDetail?
     (<View style={[styles.detailContainer,{height:dimensions.height}]}>
