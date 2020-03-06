@@ -67,7 +67,7 @@ const GPS = ({ address, setAddress }) => {
           {/* Fetching location is async. Need to display a placeholder through this condition until it's fetched */}
           {location.coords ? (
             <View style={styles.locationInfo}>
-              <Text>
+              <Text style={styles.location}>
                 {address.city}, {address.region}
               </Text>
             </View>
@@ -90,6 +90,9 @@ const styles = StyleSheet.create({
   },
   locationInfo: {
     alignItems: "center"
+  },
+  location: {
+    color: "white"
   }
 });
 
