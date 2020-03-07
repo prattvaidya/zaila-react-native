@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const JWT = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsidXNlcklkIjoyOCwicHJlZmVycmVkTGFuZ3VhZ2UiOiJlbi1VUyIsIm5hbWUiOiJTdW5ueSIsImVtYWlsIjoic0BzLmNvbSIsImF1dG9QbGF5RGVzY3JpcHRpb24iOjEsImF1dG9FbnJvbGxRdWVzdCI6MSwidXNlclhQIjowfSwiaWF0IjoxNTgzNTQxNDAxLCJleHAiOjE1ODM1NDUwMDF9.gZQHUkdVkcdSkxgD0hpYiL4BA-fHS40rGssqNsJJ5z4';
+const JWT = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsidXNlcklkIjoyNywicHJlZmVycmVkTGFuZ3VhZ2UiOiJlbi1VUyIsIm5hbWUiOiJaYWlsYSBVc2VyIiwiZW1haWwiOiJ6YWlsYTEyMzQ1NkB6YWlsYS5jb20iLCJhdXRvUGxheURlc2NyaXB0aW9uIjoxLCJhdXRvRW5yb2xsUXVlc3QiOjEsInVzZXJYUCI6MH0sImlhdCI6MTU4MzU0NTc3OCwiZXhwIjoxNTg0MTUwNTc4fQ.C_7EGjjfLs7JoLkt6TsEsq1vUUuorgbtUj1KgomRwzE';
 
 const get = endpoint => {
   return axios
@@ -10,10 +10,11 @@ const get = endpoint => {
       }
     })
     .then(res => {
+      console.log(res)
       return res.data.data;
     })
     .catch(err => {
-      console.log(err);
+      alert(err);
     });
 };
 

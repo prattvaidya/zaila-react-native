@@ -11,21 +11,6 @@ const ExhibitionDetail = ({ route }) => {
 	const [getDetail, setGetDetail] = useState(false)
 
 	useEffect(() => {
-		// const URL = `https://zaila-backend.herokuapp.com/api/exhibition/${route.params.exhibitionId}`
-		// axios
-		// 	.get(URL, {
-		// 		// headers: {   "X-Custom-Header": "foobar" }
-		// 	})
-		// 	.then(response => {
-		// 		if (response.status === 200) {
-		// 			console.log(response.data.data)
-		// 			setExhibitionDetail(response.data.data.exhibition)
-		// 			setGetDetail(true)
-		// 		}
-		// 	})
-		// 	.catch(err => {
-		// 		console.log(err)
-        //     })
         get(`exhibition/${route.params.exhibitionId}`)
         .then(result => {
             console.log(result)
