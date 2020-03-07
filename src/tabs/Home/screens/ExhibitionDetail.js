@@ -2,29 +2,37 @@ import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, Image, Dimensions, ScrollView } from 'react-native'
 import ZailaGirlMenu from 'zaila/src/shared/ZailaGirlMenu';
 import Loading from 'zaila/src/shared/Loading'
-import axios from 'axios'
 import moment from 'moment'
+// Services
+import { get } from 'zaila/src/services/zaila-api.js';
 
 const ExhibitionDetail = ({ route }) => {
 	const [exhibitionDetail, setExhibitionDetail] = useState({})
 	const [getDetail, setGetDetail] = useState(false)
 
 	useEffect(() => {
-		const URL = `https://zaila-backend.herokuapp.com/api/exhibition/${route.params.exhibitionId}`
-		axios
-			.get(URL, {
-				// headers: {   "X-Custom-Header": "foobar" }
-			})
-			.then(response => {
-				if (response.status === 200) {
-					console.log(response.data.data)
-					setExhibitionDetail(response.data.data.exhibition)
-					setGetDetail(true)
-				}
-			})
-			.catch(err => {
-				console.log(err)
-			})
+		// const URL = `https://zaila-backend.herokuapp.com/api/exhibition/${route.params.exhibitionId}`
+		// axios
+		// 	.get(URL, {
+		// 		// headers: {   "X-Custom-Header": "foobar" }
+		// 	})
+		// 	.then(response => {
+		// 		if (response.status === 200) {
+		// 			console.log(response.data.data)
+		// 			setExhibitionDetail(response.data.data.exhibition)
+		// 			setGetDetail(true)
+		// 		}
+		// 	})
+		// 	.catch(err => {
+		// 		console.log(err)
+        //     })
+        get(`exhibition/${route.params.exhibitionId}`)
+        .then(result => {
+            console.log(result)
+            setExhibitionDetail(result.exhibition)
+			setGetDetail(true)
+        })
+        
 	}, [])
 
 	const dimensions = Dimensions.get('window')

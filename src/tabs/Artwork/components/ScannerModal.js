@@ -1,96 +1,102 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 import {
-    View,
-    Text,
-    Alert,
-    TouchableHighlight,
-    Modal,
-    StyleSheet
-} from 'react-native';
-import {BarCodeScanner} from 'expo-barcode-scanner';
+  View,
+  Text,
+  Alert,
+  TouchableHighlight,
+  Modal,
+  StyleSheet
+} from "react-native";
+import { BarCodeScanner } from "expo-barcode-scanner";
 
+import { globalStyles } from "../../../../styles/global";
 
-import {globalStyles} from '../../../../styles/global';
+const ScannerModal = ({
+  isOpen,
+  toggleModal,
+  toggleArtworkModal,
+  setSensorId
+}) => {
+  const [hasPermission, setHasPermission] = useState(null);
+  const [scanned, setScanned] = useState(false);
 
-const ScannerModal = ({isOpen, toggleModal,toggleArtworkModal,setSensorId}) => {
+  useEffect(() => {
+    setScanned(false);
+    (async () => {
+      const { status } = await BarCodeScanner.requestPermissionsAsync();
+      setHasPermission(status === "granted");
+    })();
+  }, []);
 
-    const [hasPermission,
-        setHasPermission] = useState(null);
-    const [scanned,
-        setScanned] = useState(false);
+  const handleBarCodeScanned = ({ type, data }) => {
+    setScanned(true);
+    const sensorId = data;
+    setScanned(false);
+    toggleModal();
 
-    useEffect(() => {
-        setScanned(false);
-        (async() => {
-            const {status} = await BarCodeScanner.requestPermissionsAsync();
-            setHasPermission(status === 'granted');
-        })();
-    },[]);
+    setSensorId(sensorId);
+    toggleArtworkModal();
+  };
 
-    const handleBarCodeScanned = ({type, data}) => {
-        setScanned(true);
-        const sensorId = data;
-        setScanned(false);
-        toggleModal();
-
-        setSensorId(sensorId);
-        toggleArtworkModal();
-
-    };
-
-    if (hasPermission === null) {
-        return <Text style={globalStyles.textCenter}>Requesting for camera permission</Text>;
-    }
-    if (hasPermission === false) {
-        return <Text style={globalStyles.textCenter}>No access to camera</Text>;
-    }
-
+  if (hasPermission === null) {
     return (
-
-        <Modal
-            animationType="slide"
-            transparent={false}
-            visible={isOpen}
-            onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-        }}>
-            <View style={{
-                marginTop: 22
-            }}> 
-                <Text style={globalStyles.textCenter}>Scan QR Code here</Text>
-                <View style={styles.modalContainer}>
-                <BarCodeScanner
-                    onBarCodeScanned={scanned
-                    ? undefined
-                    : handleBarCodeScanned}
-                    style={styles.cameraContainer}/>
-                <TouchableHighlight style={styles.closeButton} onPress={toggleModal}>
-                    <Text style={[globalStyles.textWhite,styles.closeButtonText]}>X</Text>
-                </TouchableHighlight>
-                </View>
-            </View>
-        </Modal>
+      <Text style={globalStyles.textCenter}>
+        Requesting for camera permission
+      </Text>
     );
-}
+  }
+  if (hasPermission === false) {
+    return <Text style={globalStyles.textCenter}>No access to camera</Text>;
+  }
+
+  return (
+    <Modal
+      animationType="slide"
+      transparent={false}
+      visible={isOpen}
+      onRequestClose={() => {
+        Alert.alert("Modal has been closed.");
+      }}
+    >
+      <View
+        style={{
+          marginTop: 22
+        }}
+      >
+        <Text style={globalStyles.textCenter}>Scan QR Code here</Text>
+        <View style={styles.modalContainer}>
+          <BarCodeScanner
+            onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+            style={styles.cameraContainer}
+          />
+          <TouchableHighlight style={styles.closeButton} onPress={toggleModal}>
+            <Text style={[globalStyles.textWhite, styles.closeButtonText]}>
+              X
+            </Text>
+          </TouchableHighlight>
+        </View>
+      </View>
+    </Modal>
+  );
+};
 
 const styles = StyleSheet.create({
-    modalContainer: {
-        position: "relative"
-    },
-    cameraContainer: {
-        width: '100%',
-        height: '95%'
-    },
-    closeButton: {
-        position: 'absolute',
-        top: 10,
-        right: 10
-    },
-    closeButtonText:{
-        fontSize:24,
-        fontWeight:'bold'
-    }
-
+  modalContainer: {
+    position: "relative"
+  },
+  cameraContainer: {
+    width: "100%",
+    height: "95%"
+  },
+  closeButton: {
+    position: "absolute",
+    top: 10,
+    right: 10
+  },
+  closeButtonText: {
+    fontSize: 24,
+    fontWeight: "bold"
+  }
 });
 
 export default ScannerModal;
