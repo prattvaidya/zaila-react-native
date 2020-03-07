@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from "react";
 import {Text, View, StyleSheet, Image, Dimensions,Modal,TouchableHighlight} from "react-native";
 import axios from "axios";
+import { get } from 'zaila/src/services/zaila-api.js';
 import Loading from '../../../shared/Loading';
 import ArtworkDetail from "zaila/src/tabs/Artwork/components/ArtworkDetail";
 import BottomSpeaker from './BottomSpeaker';
 import { FontAwesome } from '@expo/vector-icons';
 
-import {globalStyles} from '../../../../styles/global';
 
 const ArtworkInfoModal = ({sensorId,isOpenArtworkModal,toggleArtworkModal}) => {
 
@@ -38,16 +38,10 @@ const ArtworkInfoModal = ({sensorId,isOpenArtworkModal,toggleArtworkModal}) => {
         // console.log('Get ID from parent',sensorId);
         const receiveSensorId = sensorId? sensorId: 'n124';
 
-        const URL = `https://zaila-backend.herokuapp.com/api/artwork/?sensorId=${receiveSensorId}`;
-        axios
-            .get(URL, {
-            // headers: {   "X-Custom-Header": "foobar" }
-        })
-            .then(response => {
-                if (response.status === 200) {
-                    setArtworkInfo(response.data.data);
-                    setIsReady(true);
-                }
+        get(`artwork/?sensorId=${receiveSensorId}`)
+            .then(result => {
+                setArtworkInfo(result);
+                setIsReady(true);
             })
             .catch(err => {
                 console.log(err);

@@ -9,9 +9,6 @@ const ArtworkTab = () => {
 
 
   return (
-    // <ArtworkStack.Navigator>
-    //   <ArtworkStack.Screen  name="ArtworkHome" component={ArtworkHome} />
-    // </ArtworkStack.Navigator>
     <ArtworkHome />
       
   );
