@@ -73,9 +73,10 @@ const styles = StyleSheet.create({
     detailContainer:{
         // position:'relative',
         // flex:1
+        backgroundColor:'#E7E7E7'
     },
     detailHeader:{
-       backgroundColor:'lightgrey',
+       backgroundColor:'white',
     }
     ,
    title:{

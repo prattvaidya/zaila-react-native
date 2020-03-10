@@ -14,6 +14,10 @@ import ProfileTab from 'zaila/src/tabs/Profile/ProfileTab'
 // Authentication
 import Welcome from 'zaila/src/auth/Welcome'
 
+//Camera and Artwork Modal
+import ScannerModal from 'zaila/src/tabs/Artwork/components/ScannerModal';
+import ArtworkInfoModal from 'zaila/src/tabs/Artwork/components/ArtworkInfoModal';
+
 // Set up the base URL for axios
 import { ZAILA_API_URL } from 'react-native-dotenv'
 import axios from 'axios'
@@ -23,17 +27,41 @@ const Tab = createBottomTabNavigator()
 
 export default function App() {
 	const [signedIn, setSignedIn] = useState(false)
+	const [openModal, setOpenModal] = useState(false);
+	const [openArtworkModal, setOpenArtworkModal] = useState(false);
+	const [sensorId, setSensorId] = useState(null);
+
+	const toggleModal = () => {
+		setOpenModal(!openModal);
+	  };
+	
+	  const toggleArtworkModal = () => {
+		setOpenArtworkModal(!openArtworkModal);
+	  };
 
 	return (
 		<NavigationContainer>
 			{!signedIn ? (
 				<Welcome setSignedIn={setSignedIn} />
 			) : (
-				<Tab.Navigator initialRouteName="Home" tabBar={props => <TabNavigator {...props} />}>
+				<>
+				<Tab.Navigator initialRouteName="Home" tabBar={props => <TabNavigator toggleModal={toggleModal} {...props} />}>
 					<Tab.Screen name="Home" component={HomeTab} />
 					<Tab.Screen name="Artwork" component={ArtworkTab} />
 					<Tab.Screen name="Profile" component={ProfileTab} />
 				</Tab.Navigator>
+				  <ScannerModal
+				  setSensorId={setSensorId}
+				  toggleModal={toggleModal}
+				  toggleArtworkModal={toggleArtworkModal}
+				  isOpen={openModal}
+				/>
+				<ArtworkInfoModal
+				  sensorId={sensorId}
+				  toggleArtworkModal={toggleArtworkModal}
+				  isOpenArtworkModal={openArtworkModal}
+				/>
+				</>
 			)}
 		</NavigationContainer>
 	)

@@ -14,7 +14,7 @@ const UserSnippet = () => {
             <View style={styles.snapshotContainer}>
                 <Image 
                 style={styles.snapshot}
-                source={require('zaila/assets/snapshot.jpg')}/>
+                source={require('zaila/assets/user-snapshot.png')}/>
             </View>
             <View style={styles.levelTextContainer}>
             <Text style={styles.levelText}>Lv.{userInfo.level}</Text>
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         borderRadius:50,
         alignItems:'center',
         justifyContent:'center',
-        backgroundColor:'coral'
+        backgroundColor:'#F79839'
     },
     snapshotContainer:{
         borderRadius:50,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         height:'100%'
     },
     levelTextContainer:{
-        backgroundColor:'gray',
+        backgroundColor:'#421A15',
          width:'80%',
          borderRadius:5,
          position:'relative',
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     ,
     levelText:{
         textAlign:'center',
+        color:'white'
     }
 })
 

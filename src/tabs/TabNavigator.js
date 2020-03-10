@@ -6,7 +6,8 @@ import useStateWithCallback from 'use-state-with-callback';
 import UserSnippet from '../shared/UserSnippet';
 
 // The following code is referenced from https://reactnavigation.org/docs/en/bottom-tab-navigator.html#tabbar
-function TabNavigator({ state, descriptors, navigation }) {
+function TabNavigator({ state, descriptors, navigation ,toggleModal}) {
+
 
   const dimensions = Dimensions.get('window');
 
@@ -42,7 +43,7 @@ function TabNavigator({ state, descriptors, navigation }) {
       } else if (route.name === "Profile") {
         iconName = "user";
       }
-      const icon = <FontAwesome name={iconName} size={26} color="white" />;
+      const icon = <FontAwesome name={iconName} size={26} color="#F79839" />;
 
       const isFocused = state.index === index;
 
@@ -51,9 +52,14 @@ function TabNavigator({ state, descriptors, navigation }) {
           type: "tabPress",
           target: route.key
         });
-
-        if (!isFocused && !event.defaultPrevented) {
-          navigation.navigate(route.name);
+        if(route.name==="Artwork")
+        {
+          toggleModal(true);
+        }
+        else{
+          if (!isFocused && !event.defaultPrevented) {
+            navigation.navigate(route.name);
+          }
         }
       };
 
@@ -115,7 +121,7 @@ const styles = StyleSheet.create({
     width:55,
     height:55,
     borderRadius: 50,
-    backgroundColor: "coral",
+    backgroundColor: "#88163B",
     justifyContent: "center",
     alignItems: "center",
     position:'absolute'
