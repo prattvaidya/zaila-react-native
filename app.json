@@ -9,7 +9,7 @@
 		"orientation": "portrait",
 		"icon": "./assets/img/zaila.png",
 		"splash": {
-			"image": "./assets/zaila.png",
+			"image": "./assets/img/zaila.png",
 			"resizeMode": "contain",
 			"backgroundColor": "#ffffff"
 		},
