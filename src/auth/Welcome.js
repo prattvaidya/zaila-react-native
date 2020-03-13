@@ -1,7 +1,15 @@
+// React and React Native
 import React, { useState } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
-import WelcomeImage from 'zaila/assets/welcome.png'
+// Images
+import ZailaText from 'zaila/assets/img/zaila-text.png'
+import Zaila from 'zaila/assets/img/zaila.png'
+import BtnLeftTag from 'zaila/assets/img/btn-left-tag.png'
+import BtnRightTag from 'zaila/assets/img/btn-right-tag.png'
+
+// Global Styles
+import { colors } from 'zaila/styles/global'
 
 const Welcome = ({ setSignedIn }) => {
 	const [selection, setSelection] = useState(null)
@@ -12,40 +20,22 @@ const Welcome = ({ setSignedIn }) => {
 
 	return (
 		<View style={styles.container}>
-			<Image source={WelcomeImage} />
-			<TouchableOpacity style={selection !== 'login' && styles.btn} onPress={() => setSelection('login')}>
-				<Text style={selection !== 'login' && styles.btnTxt}>Login</Text>
-			</TouchableOpacity>
-			{selection === 'login' && (
-				<>
-					<TouchableOpacity style={styles.btn} onPress={authenticate}>
-						<Text>Email</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.btn} onPress={authenticate}>
-						<Text>Gmail</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.btn} onPress={authenticate}>
-						<Text>Facebook</Text>
-					</TouchableOpacity>
-				</>
-			)}
-			<Text>Or</Text>
-			<TouchableOpacity style={selection !== 'signup' && styles.btn} onPress={() => setSelection('signup')}>
-				<Text style={selection !== 'signup' && styles.btnTxt}>Signup</Text>
-			</TouchableOpacity>
-			{selection === 'signup' && (
-				<>
-					<TouchableOpacity style={styles.btn} onPress={authenticate}>
-						<Text>Email</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.btn} onPress={authenticate}>
-						<Text>Gmail</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.btn} onPress={authenticate}>
-						<Text>Facebook</Text>
-					</TouchableOpacity>
-				</>
-			)}
+			<Image source={ZailaText} />
+			<Image source={Zaila} style={styles.zaila} />
+			<View styles={styles.btnContainer}>
+				<TouchableOpacity style={styles.btn} onPress={() => setSelection('login')}>
+					<Image source={BtnLeftTag} />
+					<Text style={styles.btnTxt}>Login</Text>
+					<Image source={BtnRightTag} />
+				</TouchableOpacity>
+				{selection === 'login' && <></>}
+				<TouchableOpacity style={styles.btn} onPress={() => setSelection('signup')}>
+					<Image source={BtnLeftTag} />
+					<Text style={styles.btnTxt}>Signup</Text>
+					<Image source={BtnRightTag} />
+				</TouchableOpacity>
+				{selection === 'signup' && <></>}
+			</View>
 		</View>
 	)
 }
@@ -55,15 +45,33 @@ export default Welcome
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center'
+		justifyContent: 'space-around',
+		alignItems: 'center',
+		paddingTop: 50,
+		paddingBottom: 50
+	},
+	zaila: {
+		height: 250,
+		width: 250,
+		resizeMode: 'contain'
 	},
 	btn: {
-		padding: 15,
-		width: '70%',
-		borderWidth: 1,
+		// Size and Spacing
+		minWidth: '50%',
+		paddingTop: 10,
+		paddingBottom: 10,
 		marginTop: 10,
-		marginBottom: 10
+		marginBottom: 10,
+
+		// Borders
+		borderRadius: 50,
+		borderWidth: 1,
+		borderColor: colors.seaBuckthorn,
+
+		//Content
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center'
 	},
 	btnTxt: { textAlign: 'center' }
 })

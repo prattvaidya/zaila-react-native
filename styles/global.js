@@ -59,4 +59,4 @@ const globalStyles = StyleSheet.create({
 	}
 })
 
-export { globalStyles }
+export { colors, globalStyles }

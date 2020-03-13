@@ -6,7 +6,7 @@ const Loading = () => {
     <View style={styles.container}>
       <Image
         style={{ width: 150, height: 150 }}
-        source={require("zaila/assets/loading.gif")}
+        source={require("zaila/assets/img/loading.gif")}
       />
     </View>
   );

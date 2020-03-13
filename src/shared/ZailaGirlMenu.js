@@ -31,7 +31,7 @@ const ZailaGirlMenu = () => {
             <TouchableOpacity style={styles.characterContainer} onPress={()=>setToggleMenu(!toggleMenu)}>
                 <Image 
                 style={styles.character}
-                source={require('zaila/assets/zaila-normal.png')}/>
+                source={require('zaila/assets/img/zaila-normal.png')}/>
             </TouchableOpacity>
             <AnimatedView  style={props}>
                 <TouchableOpacity disabled={!toggleMenu} style={[styles.button,styles.button1]} onPress={()=>handleModal('map')}>
