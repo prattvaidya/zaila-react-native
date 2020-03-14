@@ -3,7 +3,8 @@ import {
   View,
   Text,
   Alert,
-  TouchableHighlight,
+  Image,
+  TouchableWithoutFeedback,
   Modal,
   StyleSheet
 } from "react-native";
@@ -52,41 +53,84 @@ const ScannerModal = ({
   return (
     <Modal
       animationType="slide"
-      transparent={false}
+      transparent={true}
       visible={isOpen}
       onRequestClose={() => {
         Alert.alert("Modal has been closed.");
       }}
     >
+      <TouchableWithoutFeedback onPress={toggleModal}>
       <View
-        style={{
-          marginTop: 22
-        }}
+        style={styles.rootContainer}
       >
-        <Text style={globalStyles.textCenter}>Scan QR Code here</Text>
         <View style={styles.modalContainer}>
+          <View style={styles.bubbleContainer}>
+          <Text style={styles.bubbleTitle}>Scan QR Code</Text>
+          <View style={styles.cameraBoarder}>
           <BarCodeScanner
             onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
             style={styles.cameraContainer}
           />
-          <TouchableHighlight style={styles.closeButton} onPress={toggleModal}>
-            <Text style={[globalStyles.textWhite, styles.closeButtonText]}>
-              X
-            </Text>
-          </TouchableHighlight>
+          </View>
+          <Text style={styles.bubbleDescription}>Align QR code to fill inside the frame.</Text>
+          </View>
+          <Image 
+                style={styles.snapshot}
+                source={require('zaila/assets/zaila-popup.png')}/>
+
         </View>
       </View>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
+  rootContainer:{
+    marginTop: 22,
+    backgroundColor:"rgba(0,0,0,0.7)",
+   
+  },
   modalContainer: {
-    position: "relative"
+    position: "relative",
+    height:"100%",
+    alignItems:"center",
+    justifyContent:"center"
+  },
+  bubbleContainer:{
+    borderRadius:10,
+    backgroundColor:"white",
+    width:"80%",
+    height:"60%",
+    marginBottom:16,
+    alignItems:"center",
+    justifyContent:"center",
+    borderColor:"#F79839",
+    borderWidth:2,
+    position:"relative"
+  },
+  bubbleTitle:{
+    textAlign:"center",
+    textTransform:"uppercase",
+    marginVertical:16,
+    color:"#88163B",
+    fontSize:20
+  }
+  ,
+  bubbleDescription:{
+    textAlign:"center",
+    color:"#88163B",
+    marginVertical:8
+  },
+  cameraBoarder: {
+    borderColor:"#F79839",
+    borderWidth:8,
+    padding:8
   },
   cameraContainer: {
-    width: "100%",
-    height: "95%"
+    width: 200,
+    height: 200,
+    position:"relative",
   },
   closeButton: {
     position: "absolute",
