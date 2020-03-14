@@ -1,9 +1,12 @@
 // React and React Native
 import React, { useState, useEffect } from 'react'
-import { Image, View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
+import { Image, View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
 
 // Services
 import { get } from 'zaila/src/services/zaila-api.js'
+
+// Core components
+import ZailaText from 'zaila/src/core/ZailaText'
 
 // Components
 import Loading from 'zaila/src/shared/Loading'
@@ -86,7 +89,7 @@ const MuseumDetail = ({ route, navigation }) => {
 		<View>
 			<MuseumInfo museum={museumInfo} />
 			<View>
-				<Text style={styles.header}>Current Exhibitions</Text>
+				<ZailaText style={styles.header}>Current Exhibitions</ZailaText>
 				<ScrollView
 					bounces="false"
 					showsVerticalScrollIndicator="false"
@@ -114,12 +117,12 @@ const MuseumDetail = ({ route, navigation }) => {
 								<View
 									style={[styles.exhibitionHeader, headerInnerAlignment(exhibition.exhibitionId, scrollOffsetY, index)]}
 								>
-									<Text style={[styles.exhibitionName, headerFont(exhibition.exhibitionId, scrollOffsetY, index)]}>
+									<ZailaText style={[styles.exhibitionName, headerFont(exhibition.exhibitionId, scrollOffsetY, index)]}>
 										{exhibition.name.toUpperCase()}
-									</Text>
-									<Text style={headerFont(exhibition.exhibitionId, scrollOffsetY, index)}>
+									</ZailaText>
+									<ZailaText style={headerFont(exhibition.exhibitionId, scrollOffsetY, index)}>
 										{formatDate(exhibition.startDate)} - {formatDate(exhibition.endDate)}
-									</Text>
+									</ZailaText>
 								</View>
 								<View style={[styles.exhibitionInfo, imgAlignment(exhibition.exhibitionId, scrollOffsetY, index)]}>
 									<View
@@ -136,7 +139,7 @@ const MuseumDetail = ({ route, navigation }) => {
 											descVisibility(exhibition.exhibitionId, scrollOffsetY, index)
 										]}
 									>
-										<Text style={styles.paraTextSize}>{exhibition.description.substring(0, 150)}...more</Text>
+										<ZailaText style={styles.paraTextSize}>{exhibition.description.substring(0, 150)}...more</ZailaText>
 									</View>
 								</View>
 							</View>

@@ -1,6 +1,9 @@
 // React and React Native
 import React from 'react'
-import { Dimensions, Image, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, Image, SafeAreaView, StyleSheet, View } from 'react-native'
+
+// Core components
+import ZailaText from 'zaila/src/core/ZailaText'
 
 const MuseumInfo = ({ museum }) => {
 	// Set image dimensions
@@ -52,18 +55,18 @@ const MuseumInfo = ({ museum }) => {
 		<SafeAreaView style={styles.container}>
 			<View style={styles.container}>
 				<View style={styles.header}>
-					<Text style={styles.title}>{museum.name}</Text>
-					<Text style={styles.addr}>
+					<ZailaText style={styles.title}>{museum.name}</ZailaText>
+					<ZailaText style={styles.addr}>
 						{museum.address} - {museum.city}, {museum.province}
-					</Text>
+					</ZailaText>
 				</View>
 				<View style={styles.headerInfo}>
 					<Image style={{ height: imageHeight, width: imageWidth }} source={{ uri: museum.imageURL }} />
 					<View style={styles.timingContainer}>
 						{timings.map((time, index) => (
-							<Text key={index} style={[styles.timings, time.current && styles.currentTiming]}>
+							<ZailaText key={index} style={[styles.timings, time.current && styles.currentTiming]}>
 								{time.day}. - {time.open} - {time.close}
-							</Text>
+							</ZailaText>
 						))}
 					</View>
 				</View>

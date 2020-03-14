@@ -1,23 +1,26 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React from 'react'
+import { View, StyleSheet } from 'react-native'
+
+// Core components
+import ZailaText from 'zaila/src/core/ZailaText'
 
 const SearchMuseums = () => (
-  <View style={styles.searchContainer}>
-    <Text style={styles.searchBox}>Search by Museum Name</Text>
-  </View>
-);
+	<View style={styles.searchContainer}>
+		<ZailaText style={styles.searchBox}>Search by Museum Name</ZailaText>
+	</View>
+)
 
 const styles = StyleSheet.create({
-  searchContainer: {
-    paddingLeft: 20,
-    paddingRight: 20
-  },
-  searchBox: {
-    padding: 5,
-    borderWidth: 1,
-    backgroundColor: "white",
-    borderColor: "white"
-  }
-});
+	searchContainer: {
+		paddingLeft: 20,
+		paddingRight: 20
+	},
+	searchBox: {
+		padding: 5,
+		borderWidth: 1,
+		backgroundColor: 'white',
+		borderColor: 'white'
+	}
+})
 
-export default SearchMuseums;
+export default SearchMuseums

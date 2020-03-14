@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, StyleSheet, TouchableOpacity, View } from 'react-native'
 
 import staticMuseums from 'zaila/src/static/museums'
+
+// Core components
+import ZailaText from 'zaila/src/core/ZailaText'
 
 const MuseumList = () => {
 	const [museums, setMuseums] = useState(staticMuseums.map(m => ({ ...m, ref: React.createRef() })))
@@ -33,20 +36,20 @@ const MuseumList = () => {
 					<TouchableOpacity ref={item.ref}>
 						<View style={[styles.museum, { marginLeft: item.mL }]}>
 							<View style={styles.museumHeader}>
-								<Text>{item.museum.name}</Text>
-								<Text>
+								<ZailaText>{item.museum.name}</ZailaText>
+								<ZailaText>
 									{item.museum.address} - {item.museum.city}, {item.museum.province}
-								</Text>
+								</ZailaText>
 							</View>
 							<View style={styles.museumInfo}>
 								{/* <View style={styles.museumImgWrapper}>
 									<Image source={{ uri: item.museum.imageURL }} style={styles.museumImg}></Image>
 								</View> */}
 								<View style={styles.museumDescWrapper}>
-									<Text>{item.museum.description}</Text>
+									<ZailaText>{item.museum.description}</ZailaText>
 									<View>
-										<Text>Current featuring:</Text>
-										<Text>Cindy Sherman and 3 more Exhibitions</Text>
+										<ZailaText>Current featuring:</ZailaText>
+										<ZailaText>Cindy Sherman and 3 more Exhibitions</ZailaText>
 									</View>
 								</View>
 							</View>

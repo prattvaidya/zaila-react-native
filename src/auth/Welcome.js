@@ -1,10 +1,23 @@
+// React and React Native
 import React, { useState } from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, View } from 'react-native'
 
-import WelcomeImage from 'zaila/assets/welcome.png'
+// Images
+import ZailaTextLogo from 'zaila/assets/img/zaila-text.png'
+import Zaila from 'zaila/assets/img/zaila.png'
+
+// Global Styles
+import { colors } from 'zaila/styles/global'
+
+// Core components
+import ZailaText from 'zaila/src/core/ZailaText'
+import ZailaButton from 'zaila/src/core/ZailaButton'
+
+// Components
+import Login from 'zaila/src/auth/components/Login'
 
 const Welcome = ({ setSignedIn }) => {
-	const [selection, setSelection] = useState(null)
+	const [selection, setSelection] = useState('welcome')
 
 	const authenticate = () => {
 		setSignedIn(true)
@@ -12,40 +25,28 @@ const Welcome = ({ setSignedIn }) => {
 
 	return (
 		<View style={styles.container}>
-			<Image source={WelcomeImage} />
-			<TouchableOpacity style={selection !== 'login' && styles.btn} onPress={() => setSelection('login')}>
-				<Text style={selection !== 'login' && styles.btnTxt}>Login</Text>
-			</TouchableOpacity>
-			{selection === 'login' && (
+			<Image source={ZailaTextLogo} />
+
+			{/* Display initially: Zaila's image, Login and Signup buttons */}
+			{selection === 'welcome' && (
 				<>
-					<TouchableOpacity style={styles.btn} onPress={authenticate}>
-						<Text>Email</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.btn} onPress={authenticate}>
-						<Text>Gmail</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.btn} onPress={authenticate}>
-						<Text>Facebook</Text>
-					</TouchableOpacity>
+					<Image source={Zaila} style={styles.zaila} />
+					<View styles={styles.btnContainer}>
+						<ZailaButton style={styles.btn} onPress={() => setSelection('login')}>
+							Login
+						</ZailaButton>
+						<ZailaButton style={styles.btn} onPress={authenticate}>
+							Signup
+						</ZailaButton>
+					</View>
 				</>
 			)}
-			<Text>Or</Text>
-			<TouchableOpacity style={selection !== 'signup' && styles.btn} onPress={() => setSelection('signup')}>
-				<Text style={selection !== 'signup' && styles.btnTxt}>Signup</Text>
-			</TouchableOpacity>
-			{selection === 'signup' && (
-				<>
-					<TouchableOpacity style={styles.btn} onPress={authenticate}>
-						<Text>Email</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.btn} onPress={authenticate}>
-						<Text>Gmail</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.btn} onPress={authenticate}>
-						<Text>Facebook</Text>
-					</TouchableOpacity>
-				</>
-			)}
+
+			{/* Displayed when the Login button is pressed */}
+			{selection === 'login' && <Login onSuccess={authenticate} />}
+
+			{/* Displayed when the Signup button is pressed */}
+			{selection === 'signup' && <></>}
 		</View>
 	)
 }
@@ -55,15 +56,14 @@ export default Welcome
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center'
+		justifyContent: 'space-around',
+		alignItems: 'center',
+		paddingTop: 50,
+		paddingBottom: 50
 	},
-	btn: {
-		padding: 15,
-		width: '70%',
-		borderWidth: 1,
-		marginTop: 10,
-		marginBottom: 10
-	},
-	btnTxt: { textAlign: 'center' }
+	zaila: {
+		height: 250,
+		width: 250,
+		resizeMode: 'contain'
+	}
 })
