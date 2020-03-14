@@ -66,7 +66,7 @@ const ScannerModal = ({
             </View>
             <Image
               style={styles.snapshot}
-              source={require("zaila/assets/zaila-popup.png")}
+              source={require("zaila/assets/img/zaila-popup.png")}
             />
           </View>
         </View>
