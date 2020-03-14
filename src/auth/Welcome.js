@@ -1,15 +1,18 @@
 // React and React Native
 import React, { useState } from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
 
 // Images
-import ZailaText from 'zaila/assets/img/zaila-text.png'
+import ZailaTextLogo from 'zaila/assets/img/zaila-text.png'
 import Zaila from 'zaila/assets/img/zaila.png'
 import BtnLeftTag from 'zaila/assets/img/btn-left-tag.png'
 import BtnRightTag from 'zaila/assets/img/btn-right-tag.png'
 
 // Global Styles
 import { colors } from 'zaila/styles/global'
+
+// Core components
+import ZailaText from 'zaila/src/core/ZailaText'
 
 const Welcome = ({ setSignedIn }) => {
 	const [selection, setSelection] = useState(null)
@@ -20,18 +23,18 @@ const Welcome = ({ setSignedIn }) => {
 
 	return (
 		<View style={styles.container}>
-			<Image source={ZailaText} />
+			<Image source={ZailaTextLogo} />
 			<Image source={Zaila} style={styles.zaila} />
 			<View styles={styles.btnContainer}>
-				<TouchableOpacity style={styles.btn} onPress={() => setSelection('login')}>
+				<TouchableOpacity style={styles.btn} onPress={() => setSignedIn(true)}>
 					<Image source={BtnLeftTag} />
-					<Text style={styles.btnTxt}>Login</Text>
+					<ZailaText style={styles.btnText}>Login</ZailaText>
 					<Image source={BtnRightTag} />
 				</TouchableOpacity>
 				{selection === 'login' && <></>}
-				<TouchableOpacity style={styles.btn} onPress={() => setSelection('signup')}>
+				<TouchableOpacity style={styles.btn} onPress={() => setSignedIn(true)}>
 					<Image source={BtnLeftTag} />
-					<Text style={styles.btnTxt}>Signup</Text>
+					<ZailaText style={styles.btnText}>Signup</ZailaText>
 					<Image source={BtnRightTag} />
 				</TouchableOpacity>
 				{selection === 'signup' && <></>}
@@ -73,5 +76,5 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		alignItems: 'center'
 	},
-	btnTxt: { textAlign: 'center' }
+	btnText: { textAlign: 'center', color: colors.carnationPink }
 })

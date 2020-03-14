@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, Image, Text } from 'react-native'
+import { View, StyleSheet, Image } from 'react-native'
+
+// Core components
+import ZailaText from 'zaila/src/core/ZailaText'
 
 const UserSnippet = () => {
 	const [userInfo, setUserInfo] = useState({
@@ -14,7 +17,7 @@ const UserSnippet = () => {
 				<Image style={styles.snapshot} source={require('zaila/assets/img/user-snapshot.png')} />
 			</View>
 			<View style={styles.levelTextContainer}>
-				<Text style={styles.levelText}>Lv.{userInfo.level}</Text>
+				<ZailaText style={styles.levelText}>Lv.{userInfo.level}</ZailaText>
 			</View>
 		</View>
 	)
