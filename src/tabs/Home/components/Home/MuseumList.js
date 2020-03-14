@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import { get } from 'zaila/src/services/zaila-api.js'
 import staticMuseums from 'zaila/src/static/museums'
+
+// Core components
+import ZailaText from 'zaila/src/core/ZailaText'
 
 const MuseumList = ({ city, navigation }) => {
 	const [scrollOffsetY, setScrollOffsetY] = useState(0)
@@ -78,26 +81,26 @@ const MuseumList = ({ city, navigation }) => {
 					>
 						<View style={[styles.museum, padding(museum.museumId, scrollOffsetY, index)]}>
 							<View style={[styles.museumHeader]}>
-								<Text
+								<ZailaText
 									style={[styles.museumName, styles.alignCenter, headerFont(museum.museumId, scrollOffsetY, index)]}
 								>
 									{museum.name}
-								</Text>
-								<Text
+								</ZailaText>
+								<ZailaText
 									style={[styles.paraTextSize, styles.alignCenter, addrFont(museum.museumId, scrollOffsetY, index)]}
 								>
 									{museum.address} - {museum.city}, {museum.province}
-								</Text>
+								</ZailaText>
 							</View>
 							<View style={[styles.museumInfo, imgAlignment(museum.museumId, scrollOffsetY, index)]}>
 								<View style={[styles.museumImgWrapper, imgInnerAlignment(museum.museumId, scrollOffsetY, index)]}>
 									<Image style={styles.museumImg} source={{ uri: museum.imageURL }} />
 								</View>
 								<View style={[styles.museumDescWrapper, descVisibility(museum.museumId, scrollOffsetY, index)]}>
-									<Text style={styles.paraTextSize}>{museum.description}</Text>
+									<ZailaText style={styles.paraTextSize}>{museum.description}</ZailaText>
 									<View>
-										<Text style={[styles.paraTextSize, styles.featuredHeading]}>Current featuring:</Text>
-										<Text style={styles.paraTextSize}>Cindy Sherman and 3 more Exhibitions</Text>
+										<ZailaText style={[styles.paraTextSize, styles.featuredHeading]}>Current featuring:</ZailaText>
+										<ZailaText style={styles.paraTextSize}>Cindy Sherman and 3 more Exhibitions</ZailaText>
 									</View>
 								</View>
 							</View>
