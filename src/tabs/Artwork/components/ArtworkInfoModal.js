@@ -38,7 +38,6 @@ const ArtworkInfoModal = ({ sensorId, isOpenArtworkModal, toggleArtworkModal }) 
 
 		get(`artwork/?sensorId=${receiveSensorId}`)
 			.then(result => {
-				console.log(result)
 				setArtworkInfo(result)
 				setIsReady(true)
 			})
