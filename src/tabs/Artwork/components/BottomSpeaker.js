@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, Image, StyleSheet, TouchableWithoutFeedback } from 'react-native'
+import { View, Image, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import * as Speech from 'expo-speech'
 import { FontAwesome } from '@expo/vector-icons'
+
+// Core components
+import ZailaText from 'zaila/src/core/ZailaText'
 
 const BottomSpeaker = ({ title, artist, content }) => {
 	const [isPlaying, setIsPlaying] = useState(false)
@@ -32,8 +35,8 @@ const BottomSpeaker = ({ title, artist, content }) => {
 	return (
 		<View style={styles.container}>
 			<View style={styles.leftPart}>
-				<Text style={styles.textInfo}>{title}</Text>
-				<Text style={styles.textInfo}>{artist}</Text>
+				<ZailaText style={styles.textInfo}>{title}</ZailaText>
+				<ZailaText style={styles.textInfo}>{artist}</ZailaText>
 			</View>
 			<View style={styles.rightPart}>
 				{!isPlaying ? (

@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
+import { View, Image, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
 import { get } from 'zaila/src/services/zaila-api.js'
 import staticMuseums from 'zaila/src/static/museums'
+
+// Core components
+import ZailaText from 'zaila/src/core/ZailaText'
 
 const MuseumList = ({ city, navigation }) => {
 	const [scrollOffsetY, setScrollOffsetY] = useState(0)
@@ -66,7 +69,7 @@ const MuseumList = ({ city, navigation }) => {
 
 	return (
 		<View style={styles.museumContainer}>
-			<Text style={styles.searchBox}>Placeholder for Search by Museum Name</Text>
+			<ZailaText style={styles.searchBox}>Placeholder for Search by Museum Name</ZailaText>
 
 			<FlatList
 				data={museums}
@@ -101,7 +104,7 @@ const MuseumList = ({ city, navigation }) => {
 						>
 							<View style={[styles.museum, padding(item.museum.museumId, scrollOffsetY, index)]}>
 								<View style={[styles.museumHeader]}>
-									<Text
+									<ZailaText
 										style={[
 											styles.museumName,
 											styles.alignCenter,
@@ -109,8 +112,8 @@ const MuseumList = ({ city, navigation }) => {
 										]}
 									>
 										{item.museum.name}
-									</Text>
-									<Text
+									</ZailaText>
+									<ZailaText
 										style={[
 											styles.paraTextSize,
 											styles.alignCenter,
@@ -118,7 +121,7 @@ const MuseumList = ({ city, navigation }) => {
 										]}
 									>
 										{item.museum.address} - {item.museum.city}, {item.museum.province}
-									</Text>
+									</ZailaText>
 								</View>
 								<View style={[styles.museumInfo, imgAlignment(item.museum.museumId, scrollOffsetY, index)]}>
 									<View
@@ -127,10 +130,10 @@ const MuseumList = ({ city, navigation }) => {
 										<Image style={styles.museumImg} source={{ uri: item.museum.imageURL }} />
 									</View>
 									<View style={[styles.museumDescWrapper, descVisibility(item.museum.museumId, scrollOffsetY, index)]}>
-										<Text style={styles.paraTextSize}>{item.museum.description}</Text>
+										<ZailaText style={styles.paraTextSize}>{item.museum.description}</ZailaText>
 										<View>
-											<Text style={[styles.paraTextSize, styles.featuredHeading]}>Current featuring:</Text>
-											<Text style={styles.paraTextSize}>Cindy Sherman and 3 more Exhibitions</Text>
+											<ZailaText style={[styles.paraTextSize, styles.featuredHeading]}>Current featuring:</ZailaText>
+											<ZailaText style={styles.paraTextSize}>Cindy Sherman and 3 more Exhibitions</ZailaText>
 										</View>
 									</View>
 								</View>
@@ -167,7 +170,7 @@ const MuseumList = ({ city, navigation }) => {
               ]}
             >
               <View style={[styles.museumHeader]}>
-                <Text
+                <ZailaText
                   style={[
                     styles.museumName,
                     styles.alignCenter,
@@ -175,8 +178,8 @@ const MuseumList = ({ city, navigation }) => {
                   ]}
                 >
                   {museum.name}
-                </Text>
-                <Text
+                </ZailaText>
+                <ZailaText
                   style={[
                     styles.paraTextSize,
                     styles.alignCenter,
@@ -184,7 +187,7 @@ const MuseumList = ({ city, navigation }) => {
                   ]}
                 >
                   {museum.address} - {museum.city}, {museum.province}
-                </Text>
+                </ZailaText>
               </View>
               <View
                 style={[
@@ -209,14 +212,14 @@ const MuseumList = ({ city, navigation }) => {
                     descVisibility(museum.museumId, scrollOffsetY, index)
                   ]}
                 >
-                  <Text style={styles.paraTextSize}>{museum.description}</Text>
+                  <ZailaText style={styles.paraTextSize}>{museum.description}</ZailaText>
                   <View>
-                    <Text style={[styles.paraTextSize, styles.featuredHeading]}>
+                    <ZailaText style={[styles.paraTextSize, styles.featuredHeading]}>
                       Current featuring:
-                    </Text>
-                    <Text style={styles.paraTextSize}>
+                    </ZailaText>
+                    <ZailaText style={styles.paraTextSize}>
                       Cindy Sherman and 3 more Exhibitions
-                    </Text>
+                    </ZailaText>
                   </View>
                 </View>
               </View>

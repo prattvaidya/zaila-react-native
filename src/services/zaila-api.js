@@ -1,21 +1,22 @@
-import axios from "axios";
+import axios from 'axios'
 
-const JWT = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsidXNlcklkIjoyNywicHJlZmVycmVkTGFuZ3VhZ2UiOiJlbi1VUyIsIm5hbWUiOiJaYWlsYSBVc2VyIiwiZW1haWwiOiJ6YWlsYTEyMzQ1NkB6YWlsYS5jb20iLCJhdXRvUGxheURlc2NyaXB0aW9uIjoxLCJhdXRvRW5yb2xsUXVlc3QiOjEsInVzZXJYUCI6MH0sImlhdCI6MTU4MzU0NTc3OCwiZXhwIjoxNTg0MTUwNTc4fQ.C_7EGjjfLs7JoLkt6TsEsq1vUUuorgbtUj1KgomRwzE';
+const JWT =
+	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsidXNlcklkIjoyNSwicHJlZmVycmVkTGFuZ3VhZ2UiOiJlbi1VUyIsIm5hbWUiOiJSMSIsImVtYWlsIjoickByLmNvbSIsImF1dG9QbGF5RGVzY3JpcHRpb24iOjEsImF1dG9FbnJvbGxRdWVzdCI6MSwidXNlclhQIjowfSwiaWF0IjoxNTg0MjE2ODU3LCJleHAiOjE1ODQ4MjE2NTd9.drsAyo6GEF2XzO4lswBBb3WoCSQlc07_XUcDcQAD_a4'
 
 const get = endpoint => {
-  return axios
-    .get(endpoint,{
-      headers: {
-        'Authorization': `Bearer ${JWT}`
-      }
-    })
-    .then(res => {
-      console.log(res)
-      return res.data.data;
-    })
-    .catch(err => {
-      alert(err);
-    });
-};
+	return axios
+		.get(endpoint, {
+			headers: {
+				Authorization: `Bearer ${JWT}`
+			}
+		})
+		.then(res => {
+			console.log(res)
+			return res.data.data
+		})
+		.catch(err => {
+			alert(err)
+		})
+}
 
-export { get };
+export { get }
