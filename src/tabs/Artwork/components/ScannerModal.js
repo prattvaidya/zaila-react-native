@@ -4,6 +4,7 @@ import {
   Text,
   Alert,
   Image,
+  ImageBackground,
   TouchableWithoutFeedback,
   Modal,
   StyleSheet
@@ -53,16 +54,21 @@ const ScannerModal = ({
         <View style={styles.rootContainer}>
           <View style={styles.modalContainer}>
             <View style={styles.bubbleContainer}>
-              <Text style={styles.bubbleTitle}>Scan QR Code</Text>
-              <View style={styles.cameraBoarder}>
+              <ZailaText style={styles.bubbleTitle}>Scan QR Code</ZailaText>
+
+              <ImageBackground
+                source={require("zaila/assets/img/qr-border.png")}
+                style={styles.cameraBoarder}
+              >
                 <BarCodeScanner
                   onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
                   style={styles.cameraContainer}
                 />
-              </View>
-              <Text style={styles.bubbleDescription}>
+              </ImageBackground>
+
+              <ZailaText style={styles.bubbleDescription}>
                 Align QR code to fill inside the frame.
-              </Text>
+              </ZailaText>
             </View>
             <Image
               style={styles.snapshot}
@@ -77,14 +83,13 @@ const ScannerModal = ({
 
 const styles = StyleSheet.create({
   rootContainer: {
-    marginTop: 22,
     backgroundColor: "rgba(0,0,0,0.7)"
   },
   modalContainer: {
     position: "relative",
     height: "100%",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "flex-end"
   },
   bubbleContainer: {
     borderRadius: 10,
@@ -98,6 +103,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     position: "relative"
   },
+
   bubbleTitle: {
     textAlign: "center",
     textTransform: "uppercase",
@@ -111,9 +117,12 @@ const styles = StyleSheet.create({
     marginVertical: 8
   },
   cameraBoarder: {
-    borderColor: "#F79839",
-    borderWidth: 8,
-    padding: 8
+    width: 230,
+    height: 230,
+    position: "relative",
+    padding: 8,
+    justifyContent: "center",
+    alignItems: "center"
   },
   cameraContainer: {
     width: 200,
