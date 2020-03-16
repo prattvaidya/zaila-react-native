@@ -1,126 +1,170 @@
-import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, Image, Dimensions, Modal, TouchableHighlight } from 'react-native'
-import axios from 'axios'
-import { get } from 'zaila/src/services/zaila-api.js'
-import Loading from '../../../shared/Loading'
-import ArtworkDetail from 'zaila/src/tabs/Artwork/components/ArtworkDetail'
-import BottomSpeaker from './BottomSpeaker'
-import { FontAwesome } from '@expo/vector-icons'
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  StyleSheet,
+  Image,
+  Dimensions,
+  Modal,
+  TouchableHighlight
+} from "react-native";
+import axios from "axios";
+import { get } from "zaila/src/services/zaila-api.js";
+import Loading from "../../../shared/Loading";
+import ArtworkDetail from "zaila/src/tabs/Artwork/components/ArtworkDetail";
+import BottomSpeaker from "./BottomSpeaker";
+import { FontAwesome } from "@expo/vector-icons";
 
 // Core components
-import ZailaText from 'zaila/src/core/ZailaText'
+import ZailaText from "zaila/src/core/ZailaText";
 
-const ArtworkInfoModal = ({ sensorId, isOpenArtworkModal, toggleArtworkModal }) => {
-	const [isReady, setIsReady] = useState(false)
+const ArtworkInfoModal = ({
+  sensorId,
+  isOpenArtworkModal,
+  toggleArtworkModal
+}) => {
+  const [isReady, setIsReady] = useState(false);
 
-	const [artworkInfo, setArtworkInfo] = useState({
-		artworkId: null,
-		exhibitionId: null,
-		sensorId: '',
-		title: 'Hello',
-		imageURL: 'https://www.somewhere.com/egypt_exhibition/1.pgg',
-		artistName: '',
-		media: '',
-		year: '',
-		artworkDetails: [
-			{
-				artworkDetailsId: 9,
-				artworkId: 1,
-				description: '',
-				languageCode: 'en-US'
-			}
-		]
-	})
+  const [artworkInfo, setArtworkInfo] = useState({
+    artworkId: null,
+    exhibitionId: null,
+    sensorId: "",
+    title: "Hello",
+    imageURL: "https://www.somewhere.com/egypt_exhibition/1.pgg",
+    artistName: "",
+    media: "",
+    year: "",
+    artworkDetails: [
+      {
+        artworkDetailsId: 9,
+        artworkId: 1,
+        description: "",
+        languageCode: "en-US"
+      }
+    ]
+  });
 
-	useEffect(() => {
-		// console.log('Get ID from parent',sensorId);
-		const receiveSensorId = sensorId ? sensorId : 'n124'
+  useEffect(() => {
+    // console.log('Get ID from parent',sensorId);
+    const receiveSensorId = sensorId ? sensorId : "n124";
 
-		get(`artwork/?sensorId=${receiveSensorId}`)
-			.then(result => {
-				setArtworkInfo(result)
-				setIsReady(true)
-			})
-			.catch(err => {
-				console.log(err)
-			})
-	}, [sensorId])
+    get(`artwork/?sensorId=${receiveSensorId}`)
+      .then(result => {
+        // console.log("From end point", result);
+        setArtworkInfo(result.artwork);
+        setIsReady(true);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, [sensorId]);
 
-	const dimensions = Dimensions.get('window')
-	const imageHeight = Math.round((dimensions.width * 9) / 16)
-	const imageWidth = dimensions.width
+  const dimensions = Dimensions.get("window");
+  const imageHeight = Math.round((dimensions.width * 9) / 16);
+  const imageWidth = dimensions.width;
 
-	return (
-		<Modal animationType="slide" transparent={false} visible={isOpenArtworkModal} style={styles.modalContainer}>
-			{isReady ? (
-				<View style={styles.artworkBlock}>
-					<Image
-						style={{ height: imageHeight, width: imageWidth, marginTop: 32 }}
-						// style={styles.artworkImage}
-						source={{
-							uri: artworkInfo.imageURL
-						}}
-					/>
-					<View style={styles.infoContainer}>
-						<ZailaText style={styles.artworkTitle}>{artworkInfo.title}</ZailaText>
-						<ZailaText style={styles.artistName}>{artworkInfo.artistName}</ZailaText>
-						<ArtworkDetail descriptionInfo={artworkInfo.artworkDetails} />
-					</View>
-					<TouchableHighlight style={styles.closeButton} onPress={toggleArtworkModal}>
-						<FontAwesome name="close" size={32} color="black" />
-					</TouchableHighlight>
-					<BottomSpeaker
-						title={artworkInfo.title}
-						artist={artworkInfo.artistName}
-						content={artworkInfo.artworkDetails}
-					/>
-				</View>
-			) : (
-				<Loading />
-			)}
-		</Modal>
-	)
-}
+  return (
+    <Modal
+      animationType="slide"
+      transparent={false}
+      visible={isOpenArtworkModal}
+      style={styles.modalContainer}
+    >
+      {isReady ? (
+        <View style={styles.artworkBlock}>
+          <Image
+            style={{
+              height: imageHeight,
+              width: imageWidth - 16,
+              marginTop: 32,
+              borderRadius: 10
+            }}
+            source={{
+              uri: artworkInfo.imageURL
+            }}
+          />
+          <View style={styles.infoContainer}>
+            <View style={styles.artworkBasicInfo}>
+              <ZailaText style={styles.artworkTitle}>
+                {artworkInfo.title}
+              </ZailaText>
+              <ZailaText style={styles.artistName}>
+                {artworkInfo.artistName} - {artworkInfo.year}
+              </ZailaText>
+            </View>
+            <ArtworkDetail descriptionInfo={artworkInfo.artworkDetails} />
+          </View>
+          <TouchableHighlight
+            style={styles.closeButton}
+            onPress={toggleArtworkModal}
+          >
+            <FontAwesome name="close" size={16} color="#F79839" />
+          </TouchableHighlight>
+          <BottomSpeaker
+            title={artworkInfo.title}
+            artist={artworkInfo.artistName}
+            content={artworkInfo.artworkDetails}
+          />
+        </View>
+      ) : (
+        <Loading />
+      )}
+    </Modal>
+  );
+};
 
 const styles = StyleSheet.create({
-	modalContainer: {
-		flex: 1,
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'flex-start',
-		flexWrap: 'wrap',
-		width: '100%',
-		position: 'relative'
-	},
-	artworkBlock: {
-		paddingTop: 20,
-		position: 'relative',
-		height: '100%'
-	},
-	infoContainer: {
-		width: '100%',
-		backgroundColor: 'lightgrey',
-		height: '52%'
-	},
-	artworkTitle: {
-		textAlign: 'center',
-		fontSize: 32,
-		fontWeight: 'bold',
-		textTransform: 'uppercase'
-	},
-	artistName: {
-		textAlign: 'center',
-		textTransform: 'uppercase'
-	},
-	artworkImage: {
-		width: 300,
-		height: 200
-	},
-	closeButton: {
-		position: 'absolute',
-		top: 16,
-		left: 10
-	}
-})
+  modalContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    flexWrap: "wrap",
+    width: "100%",
+    position: "relative",
+    backgroundColor: "#E7E7E7"
+  },
+  artworkBlock: {
+    position: "relative",
+    height: "100%",
+    marginHorizontal: 8
+  },
+  infoContainer: {
+    width: "100%",
+    height: "52%",
+    backgroundColor: "white",
+    borderRadius: 10,
+    marginTop: 8
+  },
+  artworkBasicInfo: {
+    borderBottomWidth: 2,
+    borderBottomColor: "#F79839",
+    marginHorizontal: 8
+  },
+  artworkTitle: {
+    textAlign: "center",
+    fontSize: 18,
+    color: "#276180",
+    fontWeight: "bold"
+  },
+  artistName: {
+    textAlign: "center",
+    color: "#276180",
+    fontSize: 15,
+    marginBottom: 8
+  },
+  closeButton: {
+    position: "absolute",
+    top: 20,
+    left: 0,
+    backgroundColor: "white",
+    borderRadius: 50,
+    borderColor: "#F79839",
+    borderWidth: 2,
+    width: 30,
+    height: 30,
+    alignItems: "center",
+    justifyContent: "center"
+  }
+});
 
-export default ArtworkInfoModal
+export default ArtworkInfoModal;

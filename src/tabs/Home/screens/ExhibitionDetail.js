@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "white"
   },
-  thumbnailContainer: {},
   descriptionContainer: {
     marginHorizontal: 16,
     marginVertical: 8,
