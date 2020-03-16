@@ -7,11 +7,11 @@ import {
   Modal,
   TouchableHighlight
 } from "react-native";
-import axios from "axios";
 import { get } from "zaila/src/services/zaila-api.js";
 import Loading from "../../../shared/Loading";
 import ArtworkDetail from "zaila/src/tabs/Artwork/components/ArtworkDetail";
 import BottomSpeaker from "./BottomSpeaker";
+
 import { FontAwesome } from "@expo/vector-icons";
 
 // Core components
@@ -20,28 +20,12 @@ import ZailaText from "zaila/src/core/ZailaText";
 const ArtworkInfoModal = ({
   sensorId,
   isOpenArtworkModal,
-  toggleArtworkModal
+  toggleArtworkModal,
+  toggleBadgePopup
 }) => {
   const [isReady, setIsReady] = useState(false);
 
-  const [artworkInfo, setArtworkInfo] = useState({
-    artworkId: null,
-    exhibitionId: null,
-    sensorId: "",
-    title: "Hello",
-    imageURL: "https://www.somewhere.com/egypt_exhibition/1.pgg",
-    artistName: "",
-    media: "",
-    year: "",
-    artworkDetails: [
-      {
-        artworkDetailsId: 9,
-        artworkId: 1,
-        description: "",
-        languageCode: "en-US"
-      }
-    ]
-  });
+  const [artworkInfo, setArtworkInfo] = useState({});
 
   useEffect(() => {
     // console.log('Get ID from parent',sensorId);
@@ -61,6 +45,12 @@ const ArtworkInfoModal = ({
   const dimensions = Dimensions.get("window");
   const imageHeight = Math.round((dimensions.width * 9) / 16);
   const imageWidth = dimensions.width;
+
+  const handleCloseModal = () => {
+    toggleArtworkModal();
+    toggleBadgePopup();
+    console.log("close");
+  };
 
   return (
     <Modal
@@ -95,7 +85,7 @@ const ArtworkInfoModal = ({
           </View>
           <TouchableHighlight
             style={styles.closeButton}
-            onPress={toggleArtworkModal}
+            onPress={handleCloseModal}
           >
             <FontAwesome name="close" size={16} color="#F79839" />
           </TouchableHighlight>

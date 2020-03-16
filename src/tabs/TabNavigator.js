@@ -58,7 +58,7 @@ function TabNavigator({ state, descriptors, navigation, toggleModal }) {
         type: "tabPress",
         target: route.key
       });
-      if (route.name === "xArtwork") {
+      if (route.name === "Artwork") {
         toggleModal(true);
       } else {
         if (!isFocused && !event.defaultPrevented) {

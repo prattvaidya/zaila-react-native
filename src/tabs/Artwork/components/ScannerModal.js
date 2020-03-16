@@ -70,10 +70,7 @@ const ScannerModal = ({
                 Align QR code to fill inside the frame.
               </ZailaText>
             </View>
-            <Image
-              style={styles.snapshot}
-              source={require("zaila/assets/img/zaila-popup.png")}
-            />
+            <Image source={require("zaila/assets/img/zaila-popup.png")} />
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -128,15 +125,6 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     position: "relative"
-  },
-  closeButton: {
-    position: "absolute",
-    top: 10,
-    right: 10
-  },
-  closeButtonText: {
-    fontSize: 24,
-    fontWeight: "bold"
   }
 });
 
