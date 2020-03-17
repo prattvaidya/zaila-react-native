@@ -1,16 +1,42 @@
-import React from 'react'
-import { View } from 'react-native'
-import { globalStyles } from 'zaila/styles/global'
+import React, { useState } from "react";
+import { View } from "react-native";
+import { globalStyles } from "zaila/styles/global";
+import ProfileHeader from "zaila/src/tabs/Profile/components/ProfileHeader";
+import CircleMenu from "zaila/src/tabs/Profile/components/CircleMenu";
 
-// Core components
-import ZailaText from 'zaila/src/core/ZailaText'
+//Menu Content
+import ZailaSettings from "zaila/src/tabs/Profile/components/ZailaSettings";
+import Settings from "zaila/src/tabs/Profile/components/Settings";
 
 const ProfileTab = () => {
-	return (
-		<View style={globalStyles.container}>
-			<ZailaText>Profile Tab</ZailaText>
-		</View>
-	)
-}
+  const [currentMenu, setCurrentMenu] = useState("zaila");
 
-export default ProfileTab
+  const handleSwitchMenu = menuName => {
+    setCurrentMenu(menuName);
+  };
+
+  const renderMenuContent = () => {
+    switch (currentMenu) {
+      default:
+      case "zaila":
+        return <ZailaSettings />;
+      case "settings":
+        return <Settings />;
+    }
+  };
+
+  return (
+    <View style={globalStyles.container}>
+      <ProfileHeader name="Sunny" />
+      <View style={{ alignItems: "center" }}>
+        <CircleMenu
+          currentMenu={currentMenu}
+          handleSwitchMenu={handleSwitchMenu}
+        />
+      </View>
+      {renderMenuContent()}
+    </View>
+  );
+};
+
+export default ProfileTab;
