@@ -31,7 +31,7 @@ export default function App() {
   const [openModal, setOpenModal] = useState(false);
   const [openArtworkModal, setOpenArtworkModal] = useState(false);
   const [sensorId, setSensorId] = useState(null);
-  const [openBadgePopup, setOpenBadgePopup] = useState(true);
+  const [openBadgePopup, setOpenBadgePopup] = useState(false);
 
   const toggleModal = () => {
     setOpenModal(!openModal);

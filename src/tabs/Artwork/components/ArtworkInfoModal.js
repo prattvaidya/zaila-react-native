@@ -13,6 +13,7 @@ import ArtworkDetail from "zaila/src/tabs/Artwork/components/ArtworkDetail";
 import BottomSpeaker from "./BottomSpeaker";
 
 import { FontAwesome } from "@expo/vector-icons";
+import * as SecureStore from "expo-secure-store";
 
 // Core components
 import ZailaText from "zaila/src/core/ZailaText";
@@ -24,8 +25,15 @@ const ArtworkInfoModal = ({
   toggleBadgePopup
 }) => {
   const [isReady, setIsReady] = useState(false);
-
+  const [preferLang, setPreferLang] = useState("en-US");
   const [artworkInfo, setArtworkInfo] = useState({});
+
+  //Get user preferred language
+  SecureStore.getItemAsync("preferLang").then(value => {
+    if (value) {
+      setPreferLang(value);
+    }
+  });
 
   useEffect(() => {
     // console.log('Get ID from parent',sensorId);
@@ -74,14 +82,17 @@ const ArtworkInfoModal = ({
           />
           <View style={styles.infoContainer}>
             <View style={styles.artworkBasicInfo}>
-              <ZailaText style={styles.artworkTitle}>
+              <ZailaText bold style={styles.artworkTitle}>
                 {artworkInfo.title}
               </ZailaText>
               <ZailaText style={styles.artistName}>
                 {artworkInfo.artistName} - {artworkInfo.year}
               </ZailaText>
             </View>
-            <ArtworkDetail descriptionInfo={artworkInfo.artworkDetails} />
+            <ArtworkDetail
+              preferLang={preferLang}
+              descriptionInfo={artworkInfo.artworkDetails}
+            />
           </View>
           <TouchableHighlight
             style={styles.closeButton}
@@ -93,6 +104,7 @@ const ArtworkInfoModal = ({
             title={artworkInfo.title}
             artist={artworkInfo.artistName}
             content={artworkInfo.artworkDetails}
+            preferLang={preferLang}
           />
         </View>
       ) : (

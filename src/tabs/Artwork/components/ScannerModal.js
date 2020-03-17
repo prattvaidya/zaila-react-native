@@ -54,7 +54,9 @@ const ScannerModal = ({
         <View style={styles.rootContainer}>
           <View style={styles.modalContainer}>
             <View style={styles.bubbleContainer}>
-              <ZailaText style={styles.bubbleTitle}>Scan QR Code</ZailaText>
+              <ZailaText bold style={styles.bubbleTitle}>
+                Scan QR Code
+              </ZailaText>
 
               <ImageBackground
                 source={require("zaila/assets/img/qr-border.png")}

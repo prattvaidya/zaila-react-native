@@ -17,7 +17,9 @@ const BadgePopup = ({ isOpen, toggleModal }) => {
       <View style={styles.rootContainer}>
         <View style={styles.modalContainer}>
           <View style={styles.bubbleContainer}>
-            <ZailaText style={styles.bubbleTitle}>CONGRATULATIONS!</ZailaText>
+            <ZailaText bold style={styles.bubbleTitle}>
+              CONGRATULATIONS!
+            </ZailaText>
             <Image source={require("zaila/assets/img/badge.png")} />
             <ZailaText style={styles.bubbleDescription}>
               You have successfully completed an exhibition. Here’s a badge for

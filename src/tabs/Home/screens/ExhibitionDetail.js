@@ -31,7 +31,9 @@ const ExhibitionDetail = ({ route }) => {
     <View style={[styles.detailContainer, { height: dimensions.height }]}>
       <View style={styles.detailHeader}>
         <View style={styles.detailHeaderTextContainer}>
-          <ZailaText style={styles.title}>{exhibitionDetail.name}</ZailaText>
+          <ZailaText bold style={styles.title}>
+            {exhibitionDetail.name}
+          </ZailaText>
           <ZailaText style={styles.datePeriod}>
             {moment(exhibitionDetail.startDate).format("MMMM Do, YYYY")} -{" "}
             {moment(exhibitionDetail.endDate).format("MMMM Do, YYYY")}

@@ -6,12 +6,13 @@ import {
   TouchableWithoutFeedback
 } from "react-native";
 import * as Speech from "expo-speech";
+
 import { FontAwesome } from "@expo/vector-icons";
 
 // Core components
 import ZailaText from "zaila/src/core/ZailaText";
 
-const BottomSpeaker = ({ title, artist, content }) => {
+const BottomSpeaker = ({ title, artist, content, preferLang }) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const toggleSpeakControl = () => {
@@ -19,7 +20,13 @@ const BottomSpeaker = ({ title, artist, content }) => {
 
     if (!isPlaying) {
       Speech.isSpeakingAsync().then(status => {
-        !status ? speak(content[0].description, "en-US") : Speech.resume();
+        const speakContent = content.find(item => {
+          return item.languageCode === preferLang;
+        });
+
+        console.log(speakContent.description);
+
+        !status ? speak(content[0].description, preferLang) : Speech.resume();
       });
     } else {
       Speech.pause();
@@ -40,7 +47,9 @@ const BottomSpeaker = ({ title, artist, content }) => {
   return (
     <View style={styles.container}>
       <View style={styles.leftPart}>
-        <ZailaText style={styles.title}>{title}</ZailaText>
+        <ZailaText bold style={styles.title}>
+          {title}
+        </ZailaText>
         <ZailaText style={styles.textInfo}>{artist}</ZailaText>
       </View>
       <View style={styles.rightPart}>

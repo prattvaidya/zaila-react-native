@@ -7,38 +7,18 @@ import RNPickerSelect from "react-native-picker-select";
 // Core components
 import ZailaText from "zaila/src/core/ZailaText";
 
-const ArtworkDetail = ({ descriptionInfo }) => {
-  const [languageType, setLanguageType] = useState(
-    descriptionInfo[0].languageCode
-  );
-
+const ArtworkDetail = ({ descriptionInfo, preferLang }) => {
   const [content, setContent] = useState(descriptionInfo[0].description);
 
   useEffect(() => {
     const info = descriptionInfo.find(item => {
-      return item.languageCode === languageType;
+      return item.languageCode === preferLang;
     });
+
+    console.log(info);
+
     info ? setContent(info.description) : setContent("");
   }, [descriptionInfo]);
-
-  const languageList = [
-    {
-      label: "English",
-      value: "en-US"
-    },
-    {
-      label: "French",
-      value: "fr-CA"
-    },
-    {
-      label: "Chinese",
-      value: "zh-CN"
-    },
-    {
-      label: "Spanish",
-      value: "es-MX"
-    }
-  ];
 
   //Stop speech when component Unmounted
   useEffect(() => {
