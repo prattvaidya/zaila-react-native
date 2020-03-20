@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Image,
   StyleSheet,
   TouchableWithoutFeedback
-} from "react-native";
-import * as Speech from "expo-speech";
+} from 'react-native';
+import * as Speech from 'expo-speech';
 
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome } from '@expo/vector-icons';
 
 // Core components
-import ZailaText from "zaila/src/core/ZailaText";
+import ZailaText from 'zaila/src/core/ZailaText';
 
 const BottomSpeaker = ({ title, artist, content, preferLang }) => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -19,14 +19,12 @@ const BottomSpeaker = ({ title, artist, content, preferLang }) => {
     setIsPlaying(!isPlaying);
 
     if (!isPlaying) {
-      Speech.isSpeakingAsync().then(status => {
-        const speakContent = content.find(item => {
+      Speech.isSpeakingAsync().then((status) => {
+        const speakContent = content.find((item) => {
           return item.languageCode === preferLang;
         });
 
-        console.log(speakContent.description);
-
-        !status ? speak(content[0].description, preferLang) : Speech.resume();
+        !status ? speak(speakContent.description, preferLang) : Speech.resume();
       });
     } else {
       Speech.pause();
@@ -63,7 +61,7 @@ const BottomSpeaker = ({ title, artist, content, preferLang }) => {
             </TouchableWithoutFeedback>
             <Image
               style={styles.character}
-              source={require("zaila/assets/img/zaila-popup.png")}
+              source={require('zaila/assets/img/zaila-popup.png')}
             />
           </>
         ) : (
@@ -76,7 +74,7 @@ const BottomSpeaker = ({ title, artist, content, preferLang }) => {
             </TouchableWithoutFeedback>
             <Image
               style={styles.character}
-              source={require("zaila/assets/img/zaila-music.png")}
+              source={require('zaila/assets/img/zaila-music.png')}
             />
           </>
         )}
@@ -88,33 +86,33 @@ const BottomSpeaker = ({ title, artist, content, preferLang }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "100%",
-    backgroundColor: "#FFFFFF",
-    flexDirection: "row",
+    width: '100%',
+    backgroundColor: '#FFFFFF',
+    flexDirection: 'row',
     borderWidth: 2,
-    borderColor: "#F79839",
+    borderColor: '#F79839',
     borderRadius: 40,
-    justifyContent: "center",
+    justifyContent: 'center',
     marginBottom: 8
   },
   leftPart: {
     paddingLeft: 8,
     flex: 1,
-    justifyContent: "center"
+    justifyContent: 'center'
   },
   title: {
-    textAlign: "center",
-    color: "#276180",
-    fontWeight: "bold"
+    textAlign: 'center',
+    color: '#276180',
+    fontWeight: 'bold'
   },
   textInfo: {
-    textAlign: "center",
-    color: "#276180"
+    textAlign: 'center',
+    color: '#276180'
   },
   rightPart: {
-    flexDirection: "row",
-    alignItems: "flex-end",
-    justifyContent: "flex-end"
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end'
   },
   speakControlBtn: {},
   character: {

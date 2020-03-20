@@ -1,51 +1,51 @@
-import React from "react";
-import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import React from 'react';
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 // Core components
-import ZailaText from "zaila/src/core/ZailaText";
+import ZailaText from 'zaila/src/core/ZailaText';
 
-const CircleMenu = ({ currentMenu = "Zaila", handleSwitchMenu }) => {
+const CircleMenu = ({ currentMenu = 'Zaila', handleSwitchMenu }) => {
   return (
     <>
       <View style={styles.circleContainer}>
         <Image
           style={styles.userSnapshot}
-          source={require("zaila/assets/img/user-snapshot.png")}
+          source={require('zaila/assets/img/user-snapshot.png')}
         />
         <TouchableOpacity
           style={styles.settings}
-          onPress={e => handleSwitchMenu("settings")}
+          onPress={(e) => handleSwitchMenu('settings')}
         >
           <Image
             style={{ width: 45, height: 45 }}
-            source={require("zaila/assets/img/profile-icons/settings.png")}
+            source={require('zaila/assets/img/profile-icons/settings.png')}
           />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.zaila}
-          onPress={e => handleSwitchMenu("zaila")}
+          onPress={(e) => handleSwitchMenu('zaila')}
         >
           <Image
             style={{ width: 45, height: 45 }}
-            source={require("zaila/assets/img/profile-icons/zaila-setting.png")}
+            source={require('zaila/assets/img/profile-icons/zaila-setting.png')}
           />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.history}
-          onPress={e => handleSwitchMenu("history")}
+          onPress={(e) => handleSwitchMenu('history')}
         >
           <Image
-            style={{ width: 45, height: 45 }}
-            source={require("zaila/assets/img/profile-icons/history.png")}
+            style={{ width: 45, height: 50 }}
+            source={require('zaila/assets/img/profile-icons/history-normal.png')}
           />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.badge}
-          onPress={e => handleSwitchMenu("badge")}
+          onPress={(e) => handleSwitchMenu('badge')}
         >
           <Image
-            style={{ width: 45, height: 45 }}
-            source={require("zaila/assets/img/profile-icons/badges.png")}
+            style={{ width: 30, height: 45 }}
+            source={require('zaila/assets/img/profile-icons/badge-normal.png')}
           />
         </TouchableOpacity>
         <View style={styles.border1}></View>
@@ -62,56 +62,56 @@ const styles = StyleSheet.create({
   circleContainer: {
     width: 250,
     height: 250,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 200,
-    borderColor: "#F79839",
+    borderColor: '#F79839',
     borderWidth: 2,
     marginTop: 16,
     marginBottom: 8,
-    position: "relative",
-    alignItems: "center",
-    justifyContent: "center"
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   userSnapshot: {
     zIndex: 3
   },
   settings: {
-    position: "absolute",
+    position: 'absolute',
     top: 40,
     left: 40
   },
   zaila: {
-    position: "absolute",
+    position: 'absolute',
     top: 40,
     right: 40
   },
   badge: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 40,
-    right: 40
+    right: 45
   },
   history: {
-    position: "absolute",
-    bottom: 40,
+    position: 'absolute',
+    bottom: 38,
     left: 40
   },
   currentMenuText: {
-    color: "#276180",
-    textTransform: "capitalize",
-    fontWeight: "bold"
+    color: '#276180',
+    textTransform: 'capitalize',
+    fontWeight: 'bold'
   },
   border1: {
     height: 2,
-    width: "100%",
-    backgroundColor: "#F79839",
-    position: "absolute",
+    width: '100%',
+    backgroundColor: '#F79839',
+    position: 'absolute',
     zIndex: 2
   },
   border2: {
-    height: "100%",
+    height: '100%',
     width: 2,
-    backgroundColor: "#F79839",
-    position: "absolute",
+    backgroundColor: '#F79839',
+    position: 'absolute',
     zIndex: 2
   }
 });

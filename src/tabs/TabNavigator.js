@@ -1,34 +1,42 @@
-import React from "react";
-import { View, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
-import { useSpring, animated } from "react-spring";
-import { FontAwesome } from "@expo/vector-icons";
-import useStateWithCallback from "use-state-with-callback";
-import UserSnippet from "../shared/UserSnippet";
+import React from 'react';
+import {
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+  Image
+} from 'react-native';
+import { useSpring, animated } from 'react-spring';
+import useStateWithCallback from 'use-state-with-callback';
+import UserSnippet from '../shared/UserSnippet';
 
 // Core components
-import ZailaText from "zaila/src/core/ZailaText";
+import ZailaText from 'zaila/src/core/ZailaText';
 
 // The following code is referenced from https://reactnavigation.org/docs/en/bottom-tab-navigator.html#tabbar
 function TabNavigator({ state, descriptors, navigation, toggleModal }) {
-  const dimensions = Dimensions.get("window");
+  const dimensions = Dimensions.get('window');
 
   const AnimatedView = animated(View);
 
   const [props, set, stop] = useSpring(() => ({
     opacity: 1,
-    height: "100%",
-    width: "100%"
+    height: '100%',
+    width: '100%'
   }));
 
-  const [toggleMenu, setToggleMenu] = useStateWithCallback(true, toggleMenu => {
-    set({
-      opacity: toggleMenu ? 1 : 0,
-      right: toggleMenu ? 0 : dimensions.width * 0.35,
-      top: toggleMenu ? 0 : dimensions.width * 0.35,
-      height: "100%",
-      position: "relative"
-    });
-  });
+  const [toggleMenu, setToggleMenu] = useStateWithCallback(
+    true,
+    (toggleMenu) => {
+      set({
+        opacity: toggleMenu ? 1 : 0,
+        right: toggleMenu ? 0 : dimensions.width * 0.35,
+        top: toggleMenu ? 0 : dimensions.width * 0.35,
+        height: '100%',
+        position: 'relative'
+      });
+    }
+  );
 
   //Render Tab Menu Item
   const renderTabMenuItem = state.routes.map((route, index) => {
@@ -42,23 +50,23 @@ function TabNavigator({ state, descriptors, navigation, toggleModal }) {
 
     // Custom code: Set a FontAwesome icon based on the name of the route
     let iconName;
-    if (route.name === "Home") {
-      iconName = "home";
-    } else if (route.name === "Artwork") {
-      iconName = "paint-brush";
-    } else if (route.name === "Profile") {
-      iconName = "user";
+    if (route.name === 'Home') {
+      iconName = require('zaila/assets/img/home-icon.png');
+    } else if (route.name === 'Artwork') {
+      iconName = require('zaila/assets/img/scan-icon.png');
+    } else if (route.name === 'Profile') {
+      iconName = require('zaila/assets/img/profile-icon.png');
     }
-    const icon = <FontAwesome name={iconName} size={26} color="#F79839" />;
+    const icon = <Image source={iconName} />;
 
     const isFocused = state.index === index;
 
     const onPress = () => {
       const event = navigation.emit({
-        type: "tabPress",
+        type: 'tabPress',
         target: route.key
       });
-      if (route.name === "Artwork") {
+      if (route.name === 'Artwork') {
         toggleModal(true);
       } else {
         if (!isFocused && !event.defaultPrevented) {
@@ -69,7 +77,7 @@ function TabNavigator({ state, descriptors, navigation, toggleModal }) {
 
     const onLongPress = () => {
       navigation.emit({
-        type: "tabLongPress",
+        type: 'tabLongPress',
         target: route.key
       });
     };
@@ -77,7 +85,7 @@ function TabNavigator({ state, descriptors, navigation, toggleModal }) {
     return (
       <TouchableOpacity
         accessibilityRole="button"
-        accessibilityStates={isFocused ? ["selected"] : []}
+        accessibilityStates={isFocused ? ['selected'] : []}
         accessibilityLabel={options.tabBarAccessibilityLabel}
         testID={options.tabBarTestID}
         onPress={onPress}
@@ -85,7 +93,7 @@ function TabNavigator({ state, descriptors, navigation, toggleModal }) {
         style={[styles.tabItem, styles[route.name]]}
         key={route.key}
       >
-        <ZailaText style={{ color: isFocused ? "#673ab7" : "#222" }}>
+        <ZailaText style={{ color: isFocused ? '#673ab7' : '#222' }}>
           {/* Custom Code: Render the icon instead of the name of the route */}
           {icon}
         </ZailaText>
@@ -112,24 +120,24 @@ function TabNavigator({ state, descriptors, navigation, toggleModal }) {
 // I'll look for a way to improve the styles if we decide to proceed with this UI for the navigator.
 const styles = StyleSheet.create({
   tabBar: {
-    flexDirection: "row",
-    position: "absolute",
+    flexDirection: 'row',
+    position: 'absolute',
     bottom: 0,
-    width: "40%",
-    height: "23%"
+    width: '40%',
+    height: '23%'
   },
   tabItem: {
     margin: 5,
     width: 55,
     height: 55,
     borderRadius: 50,
-    backgroundColor: "#88163B",
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute"
+    backgroundColor: '#88163B',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute'
   },
   UserSnippetContainer: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 10,
     left: 6
   },
