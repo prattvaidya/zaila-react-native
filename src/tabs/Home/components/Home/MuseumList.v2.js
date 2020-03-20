@@ -12,7 +12,7 @@ const MuseumList = ({ city, navigation }) => {
 
 	useEffect(() => {
 		if (city) {
-			get(`museum?city=${city}`)
+			get(`api/museum?city=${city}`)
 				.then(res => setMuseums(staticMuseums.map(m => ({ ...m, ref: React.createRef() }))))
 				.catch(err => console.log(err))
 		}

@@ -20,7 +20,8 @@ const globalStyles = StyleSheet.create({
 	},
 	container: {
 		flex: 1,
-		padding: 20
+		padding: 20,
+		backgroundColor: '#E7E7E7'
 	},
 	input: {
 		borderWidth: 1,

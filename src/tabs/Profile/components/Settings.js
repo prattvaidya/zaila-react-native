@@ -1,20 +1,25 @@
-import React from "react";
-import { View } from "react-native";
+import React from 'react'
+import { View } from 'react-native'
+import * as SecureStore from 'expo-secure-store'
 
 // Core components
-import ZailaText from "zaila/src/core/ZailaText";
-import ZailaButton from "zaila/src/core/ZailaButton";
+import ZailaText from 'zaila/src/core/ZailaText'
+import ZailaButton from 'zaila/src/core/ZailaButton'
 
 const Settings = () => {
-  return (
-    <View>
-      <ZailaButton style={{ backgroundColor: "white" }}>Report Bug</ZailaButton>
-      <ZailaButton style={{ backgroundColor: "white" }}>
-        Contact Zaila
-      </ZailaButton>
-      <ZailaButton style={{ backgroundColor: "white" }}>Logout</ZailaButton>
-    </View>
-  );
-};
+	const logout = () => {
+		SecureStore.deleteItemAsync('id_token')
+	}
 
-export default Settings;
+	return (
+		<View>
+			<ZailaButton style={{ backgroundColor: 'white' }}>Report Bug</ZailaButton>
+			<ZailaButton style={{ backgroundColor: 'white' }}>Contact Zaila</ZailaButton>
+			<ZailaButton onPress={logout} style={{ backgroundColor: 'white' }}>
+				Logout
+			</ZailaButton>
+		</View>
+	)
+}
+
+export default Settings

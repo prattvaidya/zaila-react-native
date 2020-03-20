@@ -5,6 +5,8 @@ import { Dimensions, Image, SafeAreaView, StyleSheet, View } from 'react-native'
 // Core components
 import ZailaText from 'zaila/src/core/ZailaText'
 
+import { colors } from 'zaila/styles/global'
+
 const MuseumInfo = ({ museum }) => {
 	// Set image dimensions
 	const dimensions = Dimensions.get('window')
@@ -80,15 +82,18 @@ const styles = StyleSheet.create({
 		backgroundColor: '#E5E5E5'
 	},
 	header: {
-		paddingBottom: 10
+		paddingBottom: 10,
+		backgroundColor: colors.claret
 	},
 	title: {
 		fontSize: 24,
-		textAlign: 'center'
+		textAlign: 'center',
+		color: 'white'
 	},
 	addr: {
 		textAlign: 'center',
-		fontSize: 12
+		fontSize: 12,
+		color: 'white'
 	},
 	headerInfo: {
 		flexDirection: 'row',
@@ -99,7 +104,8 @@ const styles = StyleSheet.create({
 		paddingLeft: 10
 	},
 	timings: {
-		fontSize: 10
+		fontSize: 10,
+		color: colors.bdazzledBlue
 	},
 	currentTiming: {
 		fontWeight: 'bold'

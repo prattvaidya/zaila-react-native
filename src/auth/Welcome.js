@@ -15,6 +15,8 @@ import ZailaButton from 'zaila/src/core/ZailaButton'
 
 // Components
 import Login from 'zaila/src/auth/components/Login'
+import EmailLogin from 'zaila/src/auth/components/EmailLogin'
+import SignUp from 'zaila/src/auth/components/SignUp'
 
 const Welcome = ({ setSignedIn }) => {
 	const [selection, setSelection] = useState('welcome')
@@ -32,21 +34,29 @@ const Welcome = ({ setSignedIn }) => {
 				<>
 					<Image source={Zaila} style={styles.zaila} />
 					<View styles={styles.btnContainer}>
-						<ZailaButton style={styles.btn} onPress={() => setSelection('login')}>
-							Login
-						</ZailaButton>
-						<ZailaButton style={styles.btn} onPress={authenticate}>
-							Signup
-						</ZailaButton>
+						<ZailaButton onPress={() => setSelection('login')}>Login</ZailaButton>
+						<ZailaButton onPress={() => setSelection('signup')}>Signup</ZailaButton>
 					</View>
 				</>
 			)}
 
 			{/* Displayed when the Login button is pressed */}
-			{selection === 'login' && <Login onSuccess={authenticate} />}
+			{selection === 'login' && (
+				<Login onSuccess={authenticate} selection={selection} onSelectionChange={setSelection} />
+			)}
+
+			{/* Displayed when the Email Login method is selected */}
+			{selection === 'emailLogin' && <EmailLogin onSuccess={authenticate} />}
 
 			{/* Displayed when the Signup button is pressed */}
-			{selection === 'signup' && <></>}
+			{selection === 'signup' && <SignUp onSuccess={authenticate} />}
+
+			{/* Display the back button on Login, Email Login and Signup screens */}
+			{(selection === 'login' || selection === 'signup' || selection === 'emailLogin') && (
+				<ZailaButton style={styles.backBtn} onPress={() => setSelection('welcome')}>
+					Back
+				</ZailaButton>
+			)}
 		</View>
 	)
 }
@@ -65,5 +75,8 @@ const styles = StyleSheet.create({
 		height: 250,
 		width: 250,
 		resizeMode: 'contain'
+	},
+	backBtn: {
+		width: '70%'
 	}
 })

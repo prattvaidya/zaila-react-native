@@ -14,6 +14,7 @@ import MuseumInfo from 'zaila/src/tabs/Home/components/MuseumDetail/MuseumInfo'
 
 // Other
 import { formatDate } from 'zaila/src/shared/Helper'
+import { colors } from 'zaila/styles/global'
 
 const MuseumDetail = ({ route, navigation }) => {
 	const [scrollOffsetY, setScrollOffsetY] = useState(0)
@@ -21,8 +22,9 @@ const MuseumDetail = ({ route, navigation }) => {
 	const [museumInfo, setMuseumInfo] = useState(undefined)
 
 	useEffect(() => {
-		get(`museum/${route.params.museumId}`)
+		get(`api/museum/${route.params.museumId}`)
 			.then(res => {
+				console.log('Museum Detail', res)
 				setMuseum(res)
 
 				// Bundle the properties that need to be sent to the MuseumInfo component
@@ -89,7 +91,9 @@ const MuseumDetail = ({ route, navigation }) => {
 		<View>
 			<MuseumInfo museum={museumInfo} />
 			<View>
-				<ZailaText style={styles.header}>Current Exhibitions</ZailaText>
+				<ZailaText style={styles.header} weight="bold">
+					Current Exhibitions
+				</ZailaText>
 				<ScrollView
 					bounces="false"
 					showsVerticalScrollIndicator="false"
@@ -117,11 +121,11 @@ const MuseumDetail = ({ route, navigation }) => {
 								<View
 									style={[styles.exhibitionHeader, headerInnerAlignment(exhibition.exhibitionId, scrollOffsetY, index)]}
 								>
-									<ZailaText style={[styles.exhibitionName, headerFont(exhibition.exhibitionId, scrollOffsetY, index)]}>
+									<ZailaText
+										style={[styles.exhibitionName, headerFont(exhibition.exhibitionId, scrollOffsetY, index)]}
+										weight="semiBold"
+									>
 										{exhibition.name.toUpperCase()}
-									</ZailaText>
-									<ZailaText style={headerFont(exhibition.exhibitionId, scrollOffsetY, index)}>
-										{formatDate(exhibition.startDate)} - {formatDate(exhibition.endDate)}
 									</ZailaText>
 								</View>
 								<View style={[styles.exhibitionInfo, imgAlignment(exhibition.exhibitionId, scrollOffsetY, index)]}>
@@ -139,7 +143,14 @@ const MuseumDetail = ({ route, navigation }) => {
 											descVisibility(exhibition.exhibitionId, scrollOffsetY, index)
 										]}
 									>
-										<ZailaText style={styles.paraTextSize}>{exhibition.description.substring(0, 150)}...more</ZailaText>
+										<ZailaText
+											style={[headerFont(exhibition.exhibitionId, scrollOffsetY, index), styles.exhibitionDate]}
+										>
+											{formatDate(exhibition.startDate)} - {formatDate(exhibition.endDate)}
+										</ZailaText>
+										<ZailaText style={[styles.paraTextSize, styles.exhibitionDesc]}>
+											{exhibition.description.substring(0, 150)}...more
+										</ZailaText>
 									</View>
 								</View>
 							</View>
@@ -153,10 +164,10 @@ const MuseumDetail = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
 	header: {
-		fontSize: 12,
-		fontWeight: 'bold',
+		fontSize: 16,
 		paddingTop: 5,
-		textAlign: 'center'
+		textAlign: 'center',
+		color: colors.bdazzledBlue
 	},
 	exhibitionsContainer: {
 		marginLeft: 20,
@@ -169,17 +180,19 @@ const styles = StyleSheet.create({
 		textAlign: 'center'
 	},
 	exhibitionHeader: {
-		backgroundColor: '#E5E5E5',
+		backgroundColor: colors.claret,
 		padding: 5,
 		borderRadius: 10,
 		zIndex: 1,
 		alignSelf: 'flex-start',
 		marginLeft: 95,
-		position: 'absolute'
+		position: 'absolute',
+		borderColor: colors.seaBuckthorn,
+		borderWidth: 1.5
 	},
 	exhibitionName: {
-		fontSize: 14,
-		fontWeight: 'bold'
+		fontSize: 18,
+		color: 'white'
 	},
 	paraTextSize: {
 		fontSize: 12
@@ -187,6 +200,9 @@ const styles = StyleSheet.create({
 	exhibitionInfo: {
 		flex: 1,
 		flexDirection: 'row'
+	},
+	exhibitionDate: {
+		color: colors.bdazzledBlue
 	},
 	exhibitionImgWrapper: {
 		flexBasis: '20%',
@@ -196,12 +212,12 @@ const styles = StyleSheet.create({
 		width: 100,
 		height: 100,
 		borderRadius: 50,
-		borderWidth: 4,
-		borderColor: '#E5E5E5',
+		borderWidth: 1.5,
+		borderColor: colors.seaBuckthorn,
 		zIndex: 3
 	},
 	exhibitionDescWrapper: {
-		backgroundColor: '#E5E5E5',
+		backgroundColor: 'white',
 		padding: 10,
 		paddingTop: 40,
 		paddingLeft: 50,
@@ -209,10 +225,15 @@ const styles = StyleSheet.create({
 		flexGrow: 1,
 		zIndex: 0,
 		borderRadius: 10,
-		marginTop: -10,
-		marginLeft: -25,
+		marginTop: -5,
+		marginLeft: -15,
 		justifyContent: 'space-between',
-		width: '95%'
+		width: '95%',
+		borderColor: colors.seaBuckthorn,
+		borderWidth: 1.5
+	},
+	exhibitionDesc: {
+		color: colors.bdazzledBlue
 	}
 })
 

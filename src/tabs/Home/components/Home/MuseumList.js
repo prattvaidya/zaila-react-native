@@ -6,13 +6,15 @@ import staticMuseums from 'zaila/src/static/museums'
 // Core components
 import ZailaText from 'zaila/src/core/ZailaText'
 
+import { colors } from 'zaila/styles/global'
+
 const MuseumList = ({ city, navigation }) => {
 	const [scrollOffsetY, setScrollOffsetY] = useState(0)
 	const [museums, setMuseums] = useState([])
 
 	useEffect(() => {
 		if (city) {
-			get(`museum?city=Vancouver`)
+			get(`api/museum?city=Vancouver`)
 				// get(`museum?city=${city}`)
 				.then(res => setMuseums(res))
 				// .then(res => setMuseums(staticMuseums))
@@ -66,47 +68,57 @@ const MuseumList = ({ city, navigation }) => {
 				}}
 				scrollEventThrottle={16}
 			>
-				{museums.map(({ museum }, index) => (
-					<TouchableOpacity
-						key={museum.museumId}
-						onPress={() => {
-							navigation.navigate('MuseumDetail', {
-								museumId: museum.museumId
-							})
-						}}
-						onLayout={event => {
-							museums.find(({ museum: m }) => m.museumId === museum.museumId).y = event.nativeEvent.layout.y
-							setMuseums(museums)
-						}}
-					>
-						<View style={[styles.museum, padding(museum.museumId, scrollOffsetY, index)]}>
-							<View style={[styles.museumHeader]}>
-								<ZailaText
-									style={[styles.museumName, styles.alignCenter, headerFont(museum.museumId, scrollOffsetY, index)]}
-								>
-									{museum.name}
-								</ZailaText>
-								<ZailaText
-									style={[styles.paraTextSize, styles.alignCenter, addrFont(museum.museumId, scrollOffsetY, index)]}
-								>
-									{museum.address} - {museum.city}, {museum.province}
-								</ZailaText>
-							</View>
-							<View style={[styles.museumInfo, imgAlignment(museum.museumId, scrollOffsetY, index)]}>
-								<View style={[styles.museumImgWrapper, imgInnerAlignment(museum.museumId, scrollOffsetY, index)]}>
-									<Image style={styles.museumImg} source={{ uri: museum.imageURL }} />
+				{museums &&
+					museums.map(({ museum }, index) => (
+						<TouchableOpacity
+							key={museum.museumId}
+							onPress={() => {
+								navigation.navigate('MuseumDetail', {
+									museumId: museum.museumId
+								})
+							}}
+							onLayout={event => {
+								museums.find(({ museum: m }) => m.museumId === museum.museumId).y = event.nativeEvent.layout.y
+								setMuseums(museums)
+							}}
+						>
+							<View style={[styles.museum, padding(museum.museumId, scrollOffsetY, index)]}>
+								<View style={[styles.museumHeader]}>
+									<ZailaText
+										style={[styles.museumName, styles.alignCenter, headerFont(museum.museumId, scrollOffsetY, index)]}
+									>
+										{museum.name}
+									</ZailaText>
+									<ZailaText
+										style={[
+											styles.paraTextSize,
+											styles.alignCenter,
+											styles.museumAddr,
+											addrFont(museum.museumId, scrollOffsetY, index)
+										]}
+									>
+										{museum.address} - {museum.city}, {museum.province}
+									</ZailaText>
 								</View>
-								<View style={[styles.museumDescWrapper, descVisibility(museum.museumId, scrollOffsetY, index)]}>
-									<ZailaText style={styles.paraTextSize}>{museum.description}</ZailaText>
-									<View>
-										<ZailaText style={[styles.paraTextSize, styles.featuredHeading]}>Current featuring:</ZailaText>
-										<ZailaText style={styles.paraTextSize}>Cindy Sherman and 3 more Exhibitions</ZailaText>
+								<View style={[styles.museumInfo, imgAlignment(museum.museumId, scrollOffsetY, index)]}>
+									<View style={[styles.museumImgWrapper, imgInnerAlignment(museum.museumId, scrollOffsetY, index)]}>
+										<Image style={styles.museumImg} source={{ uri: museum.imageURL }} />
+									</View>
+									<View style={[styles.museumDescWrapper, descVisibility(museum.museumId, scrollOffsetY, index)]}>
+										{/* <ZailaText style={styles.paraTextSize}>{museum.description}</ZailaText>
+										<View> */}
+										<ZailaText style={[styles.paraTextSize, styles.featuredHeading]} weight="bold">
+											Current featuring:
+										</ZailaText>
+										<ZailaText style={[styles.paraTextSize, styles.exhibitionInfo]}>
+											Cindy Sherman and 3 more Exhibitions
+										</ZailaText>
+										{/* </View> */}
 									</View>
 								</View>
 							</View>
-						</View>
-					</TouchableOpacity>
-				))}
+						</TouchableOpacity>
+					))}
 			</ScrollView>
 		</View>
 	)
@@ -123,13 +135,19 @@ const styles = StyleSheet.create({
 		textAlign: 'center'
 	},
 	museumHeader: {
-		backgroundColor: '#C7C7C7',
+		backgroundColor: colors.claret,
 		padding: 5,
 		borderRadius: 10,
-		zIndex: 1
+		zIndex: 1,
+		borderWidth: 1.5,
+		borderColor: colors.seaBuckthorn
 	},
 	museumName: {
-		fontSize: 24
+		fontSize: 24,
+		color: 'white'
+	},
+	museumAddr: {
+		color: 'white'
 	},
 	paraTextSize: {
 		fontSize: 12
@@ -146,8 +164,8 @@ const styles = StyleSheet.create({
 		width: 100,
 		height: 100,
 		borderRadius: 50,
-		borderWidth: 4,
-		borderColor: '#E5E5E5'
+		borderWidth: 1.5,
+		borderColor: colors.seaBuckthorn
 	},
 	museumDescWrapper: {
 		backgroundColor: '#E5E5E5',
@@ -160,10 +178,19 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 		marginTop: -10,
 		marginLeft: -25,
-		justifyContent: 'space-between'
+		justifyContent: 'center',
+		borderWidth: 1.5,
+		borderColor: colors.seaBuckthorn
 	},
 	featuredHeading: {
-		fontWeight: 'bold'
+		textAlign: 'center',
+		fontSize: 14,
+		color: colors.bdazzledBlue
+	},
+	exhibitionInfo: {
+		textAlign: 'center',
+		fontSize: 14,
+		color: colors.bdazzledBlue
 	}
 })
 
