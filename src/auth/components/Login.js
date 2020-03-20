@@ -8,12 +8,18 @@ import ZailaButton from 'zaila/src/core/ZailaButton'
 // Global Styles
 import { colors } from 'zaila/styles/global'
 
-const Login = ({ onSuccess: handleLogin }) => {
+const Login = ({ onSuccess: handleLogin, selection, onSelectionChange: handleSelectionChange }) => {
 	return (
 		<View style={styles.container}>
-			<ZailaText style={styles.header}>Login</ZailaText>
-			<ZailaButton onPress={handleLogin}>Email</ZailaButton>
-			<ZailaButton onPress={handleLogin}>Google</ZailaButton>
+			<ZailaText style={styles.header} weight="bold">
+				Login
+			</ZailaText>
+			<ZailaButton onPress={() => handleSelectionChange('emailLogin')} type="email">
+				Email
+			</ZailaButton>
+			<ZailaButton onPress={handleLogin} type="google">
+				Google
+			</ZailaButton>
 		</View>
 	)
 }
@@ -24,6 +30,7 @@ const styles = StyleSheet.create({
 	container: {
 		// Spacing
 		padding: 20,
+		width: '70%',
 
 		// Border
 		borderColor: colors.seaBuckthorn,
@@ -32,8 +39,8 @@ const styles = StyleSheet.create({
 	},
 	header: {
 		fontSize: 20,
-		fontWeight: 'bold',
 		color: colors.bdazzledBlue,
-		textAlign: 'center'
+		textAlign: 'center',
+		paddingBottom: 10
 	}
 })

@@ -6,6 +6,8 @@ import * as Location from 'expo-location'
 // Core components
 import ZailaText from 'zaila/src/core/ZailaText'
 
+import { colors } from 'zaila/styles/global'
+
 const GPS = ({ address, setAddress }) => {
 	// Determines if GPS permission is granted
 	const [isGPSEnabled, setIsGPSEnabled] = useState(false)
@@ -66,7 +68,7 @@ const GPS = ({ address, setAddress }) => {
 					{/* Fetching location is async. Need to display a placeholder through this condition until it's fetched */}
 					{location.coords ? (
 						<View style={styles.locationInfo}>
-							<ZailaText style={styles.location}>
+							<ZailaText style={styles.location} weight="semiBold">
 								{address.city}, {address.region}
 							</ZailaText>
 						</View>
@@ -91,7 +93,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center'
 	},
 	location: {
-		color: 'white'
+		color: colors.bdazzledBlue
 	}
 })
 

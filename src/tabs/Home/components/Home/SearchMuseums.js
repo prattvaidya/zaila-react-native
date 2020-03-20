@@ -3,10 +3,11 @@ import { View, StyleSheet } from 'react-native'
 
 // Core components
 import ZailaText from 'zaila/src/core/ZailaText'
+import ZailaTextInput from 'zaila/src/core/ZailaTextInput'
 
 const SearchMuseums = () => (
 	<View style={styles.searchContainer}>
-		<ZailaText style={styles.searchBox}>Search by Museum Name</ZailaText>
+		<ZailaTextInput placeholder="Search by museum name" style={styles.searchBox} />
 	</View>
 )
 
