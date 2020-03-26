@@ -41,7 +41,6 @@ const ArtworkInfoModal = ({
   });
 
   useEffect(() => {
-    // console.log('Get ID from parent',sensorId);
     const receiveSensorId = sensorId ? sensorId : 'n124';
 
     get(`api/artwork/?sensorId=${receiveSensorId}`)
@@ -73,7 +72,7 @@ const ArtworkInfoModal = ({
     >
       {isReady ? (
         <View style={styles.artworkBlock}>
-          <TouchableOpacity onPress={setIsVisible(true)}>
+          <TouchableOpacity onPress={() => setIsVisible(true)}>
             <Image
               style={{
                 height: imageHeight,

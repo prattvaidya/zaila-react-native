@@ -141,8 +141,11 @@ const styles = StyleSheet.create({
     bottom: 10,
     left: 6
   },
+  Home: {
+    top: 30
+  },
   Artwork: {
-    top: 16,
+    top: 40,
     right: 16
   },
   Profile: {
