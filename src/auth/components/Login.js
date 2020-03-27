@@ -31,13 +31,12 @@ const Login = ({ onSuccess: authenticate, selection, onSelectionChange: handleSe
 				// Try to login the user
 				post('auth/login', {}, idToken)
 					.then(res => {
-						if (res) {
-							// Returning user. Login successful
-							authenticate(res.token)
-						} else {
-							// Sign up if the user's account doesn't exist
-							return post('auth/registerUser', {}, idToken)
-						}
+						// Returning user. Login successful
+						authenticate(res.token)
+					})
+					.catch(err => {
+						// Sign up if the user's account doesn't exist
+						return post('auth/registerUser', {}, idToken)
 					})
 					.then(res => {
 						if (!res.errorCode && res.userId) {
@@ -48,7 +47,6 @@ const Login = ({ onSuccess: authenticate, selection, onSelectionChange: handleSe
 					.then(res => {
 						authenticate(res.token)
 					})
-					.catch(err => console.log('Google Login', err))
 			}
 		} catch (e) {
 			// User cancelled Google Login
