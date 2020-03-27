@@ -66,7 +66,7 @@ const MuseumDetail = ({ route, navigation }) => {
 							<View style={[styles.exhibition]}>
 								<View style={[styles.exhibitionHeader]}>
 									<ZailaText style={[styles.exhibitionName]} weight="semiBold">
-										{exhibition.name.substring(0, 20) + '...'}
+										{exhibition.name.substring(0, 15) + (exhibition.name.length > 15 ? '...' : '')}
 									</ZailaText>
 								</View>
 								<View style={[styles.exhibitionInfo]}>
