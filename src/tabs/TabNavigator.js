@@ -108,6 +108,7 @@ function TabNavigator({ state, descriptors, navigation, toggleModal }) {
 // Fortunately, there aren't any design issues on these two devices
 // I'll look for a way to improve the styles if we decide to proceed with this UI for the navigator.
 const styles = StyleSheet.create({
+
 	tabBar: {
 		flexDirection: 'row',
 		position: 'absolute',
@@ -148,5 +149,6 @@ const styles = StyleSheet.create({
 		borderColor: colors.seaBuckthorn
 	}
 })
+
 
 export default TabNavigator
