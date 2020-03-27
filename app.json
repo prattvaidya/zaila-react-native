@@ -7,7 +7,7 @@
 		"platforms": ["ios", "android", "web"],
 		"version": "1.0.0",
 		"orientation": "portrait",
-		"icon": "./assets/img/zaila.png",
+		"icon": "./assets/img/appstore.png",
 		"splash": {
 			"image": "./assets/img/zaila.png",
 			"resizeMode": "contain",
@@ -18,7 +18,9 @@
 		},
 		"assetBundlePatterns": ["**/*"],
 		"ios": {
-			"supportsTablet": true
+			"supportsTablet": true,
+			"bundleIdentifier": "com.zaila-app.zaila",
+			"buildNumber": "1.0.0"
 		}
 	}
 }
