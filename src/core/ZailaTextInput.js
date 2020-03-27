@@ -4,15 +4,26 @@ import { StyleSheet, TextInput, View } from 'react-native'
 // Global Styles
 import { colors } from 'zaila/styles/global'
 
-const ZailaTextInput = ({ placeholder, secureTextEntry, value, onChangeText: handleChangeText }) => {
+const ZailaTextInput = ({
+	autoCapitalize = 'sentences',
+	autoFocus = false,
+	placeholder,
+	placeholderTextColor = 'rgba(183, 114, 137, 0.8)',
+	secureTextEntry,
+	style,
+	value,
+	onChangeText: handleChangeText
+}) => {
 	return (
 		<View>
 			<TextInput
+				autoCapitalize={autoCapitalize}
+				autoFocus={autoFocus}
 				onChangeText={handleChangeText}
 				placeholder={placeholder}
-				placeholderTextColor="rgba(183, 114, 137, 0.8)"
+				placeholderTextColor={placeholderTextColor}
 				secureTextEntry={secureTextEntry}
-				style={styles.textInput}
+				style={[styles.textInput, style]}
 				value={value}
 			/>
 		</View>

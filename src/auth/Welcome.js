@@ -1,6 +1,7 @@
 // React and React Native
 import React, { useState } from 'react'
 import { Image, StyleSheet, View } from 'react-native'
+import * as SecureStore from 'expo-secure-store'
 
 // Images
 import ZailaTextLogo from 'zaila/assets/img/zaila-text.png'
@@ -21,7 +22,8 @@ import SignUp from 'zaila/src/auth/components/SignUp'
 const Welcome = ({ setSignedIn }) => {
 	const [selection, setSelection] = useState('welcome')
 
-	const authenticate = () => {
+	const authenticate = token => {
+		if (token) SecureStore.setItemAsync('id_token', token)
 		setSignedIn(true)
 	}
 
@@ -53,7 +55,10 @@ const Welcome = ({ setSignedIn }) => {
 
 			{/* Display the back button on Login, Email Login and Signup screens */}
 			{(selection === 'login' || selection === 'signup' || selection === 'emailLogin') && (
-				<ZailaButton style={styles.backBtn} onPress={() => setSelection('welcome')}>
+				<ZailaButton
+					style={styles.backBtn}
+					onPress={() => setSelection(selection === 'emailLogin' ? 'login' : 'welcome')}
+				>
 					Back
 				</ZailaButton>
 			)}

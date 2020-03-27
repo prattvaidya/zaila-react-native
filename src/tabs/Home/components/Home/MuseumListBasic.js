@@ -8,73 +8,21 @@ import ZailaText from 'zaila/src/core/ZailaText'
 import { colors } from 'zaila/styles/global'
 
 const MuseumList = ({ city, navigation, searchQuery }) => {
-	const [scrollOffsetY, setScrollOffsetY] = useState(0)
 	const [museums, setMuseums] = useState([])
 
 	useEffect(() => {
 		if (city) {
 			get(`api/museum?city=Vancouver`)
 				// get(`museum?city=${city}`)
-				.then(res => {
-					console.log(res)
-					setMuseums(res)
-				})
+				.then(res => setMuseums(res))
 				// .then(res => setMuseums(staticMuseums))
 				.catch(err => console.log(err))
 		}
 	}, [city])
 
-	const padding = (museumId, scroll, index) => {
-		const y = museums.find(({ museum }) => museum.museumId === museumId).y
-		const pos = y - scroll
-		const cutoff = 400
-		return {
-			marginLeft: !y && index > 2 ? '50%' : pos > cutoff ? `${110 - (cutoff / pos) * 100}%` : 0
-		}
-	}
-
-	const descVisibility = (museumId, scroll, index) => {
-		const y = museums.find(({ museum }) => museum.museumId === museumId).y
-		return {
-			display: y - scroll > 425 || (!y && index > 2) ? 'none' : 'flex'
-		}
-	}
-
-	const imgAlignment = (museumId, scroll, index) => {
-		const y = museums.find(({ museum }) => museum.museumId === museumId).y
-		return y - scroll > 425 || (!y && index > 2) ? { justifyContent: 'center' } : {}
-	}
-
-	const imgInnerAlignment = (museumId, scroll, index) => {
-		const y = museums.find(({ museum }) => museum.museumId === museumId).y
-		return y - scroll > 425 || (!y && index > 2) ? { flex: 1, alignItems: 'center' } : {}
-	}
-
-	const museumCategoryImgAlignment = (museumId, scroll, index) => {
-		const y = museums.find(({ museum }) => museum.museumId === museumId).y
-		return y - scroll > 425 || (!y && index > 2) ? { left: 0 } : {}
-	}
-
-	const headerFont = (museumId, scroll, index) => {
-		const y = museums.find(({ museum }) => museum.museumId === museumId).y
-		return y - scroll > 425 || (!y && index > 2) ? { fontSize: 12 } : { fontSize: 24 }
-	}
-
-	const addrFont = (museumId, scroll, index) => {
-		const y = museums.find(({ museum }) => museum.museumId === museumId).y
-		return y - scroll > 425 || (!y && index > 2) ? { fontSize: 10 } : { fontSize: 12 }
-	}
-
 	return (
 		<View style={styles.museumListContainer}>
-			<ScrollView
-				bounces="false"
-				showsVerticalScrollIndicator="false"
-				onScroll={event => {
-					setScrollOffsetY(event.nativeEvent.contentOffset.y)
-				}}
-				scrollEventThrottle={16}
-			>
+			<ScrollView bounces="false" showsVerticalScrollIndicator="false">
 				{museums &&
 					museums.map(({ museum }, index) => {
 						return (
@@ -86,38 +34,25 @@ const MuseumList = ({ city, navigation, searchQuery }) => {
 											museumId: museum.museumId
 										})
 									}}
-									onLayout={event => {
-										museums.find(({ museum: m }) => m.museumId === museum.museumId).y = event.nativeEvent.layout.y
-										setMuseums(museums)
-									}}
+									style={index === museums.length - 1 ? { paddingBottom: 400 } : {}}
 								>
-									<View style={[styles.museum, padding(museum.museumId, scrollOffsetY, index)]}>
+									<View style={[styles.museum]}>
 										<View style={[styles.museumHeader]}>
-											<ZailaText
-												style={[
-													styles.museumName,
-													styles.alignCenter,
-													headerFont(museum.museumId, scrollOffsetY, index)
-												]}
-											>
-												{museum.name}
-											</ZailaText>
-											<ZailaText
-												style={[
-													styles.paraTextSize,
-													styles.alignCenter,
-													styles.museumAddr,
-													addrFont(museum.museumId, scrollOffsetY, index)
-												]}
-											>
+											<ZailaText style={[styles.museumName, styles.alignCenter]}>{museum.name}</ZailaText>
+											<ZailaText style={[styles.paraTextSize, styles.alignCenter, styles.museumAddr]}>
 												{museum.address} - {museum.city}, {museum.province}
 											</ZailaText>
 										</View>
-										<View style={[styles.museumInfo, imgAlignment(museum.museumId, scrollOffsetY, index)]}>
-											<View style={[styles.museumImgWrapper, imgInnerAlignment(museum.museumId, scrollOffsetY, index)]}>
+										<View style={[styles.museumInfo]}>
+											<View style={[styles.museumImgWrapper]}>
 												<Image style={styles.museumImg} source={{ uri: museum.imageURL }} />
+												{museum.museum_category.imageURL ? (
+													<Image style={[styles.museumCategoryImg]} source={{ uri: museum.museum_category.imageURL }} />
+												) : (
+													<></>
+												)}
 											</View>
-											<View style={[styles.museumDescWrapper, descVisibility(museum.museumId, scrollOffsetY, index)]}>
+											<View style={[styles.museumDescWrapper]}>
 												{/* <ZailaText style={styles.paraTextSize}>{museum.description}</ZailaText>
 										<View> */}
 												<ZailaText style={[styles.paraTextSize, styles.featuredHeading]} weight="bold">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { Alert, StyleSheet, View } from 'react-native'
 
 // Core components
 import ZailaText from 'zaila/src/core/ZailaText'
@@ -22,10 +22,17 @@ const SignUp = ({ onSuccess: authenticate }) => {
 		post('auth/registerUser', {
 			user: { preferredLanguage: language, name: name, password: password, email: email, ageGroup: '1' }
 		})
+			.then(res => post('auth/login', { password: password, email: email }))
 			.then(res => {
-				if (res.userId) authenticate()
+				if (res.user) {
+					authenticate(res.token)
+				}
 			})
-			.catch(err => console.log(err))
+			.catch(err => {
+				const errMsgs = err.response.data.errors.map(error => error.msg.charAt(0).toUpperCase() + error.msg.slice(1))
+				const errDesc = errMsgs.join(', ')
+				Alert.alert('Signup Failed', errDesc)
+			})
 	}
 
 	return (
@@ -35,15 +42,21 @@ const SignUp = ({ onSuccess: authenticate }) => {
 			</ZailaText>
 			<View style={styles.formControl}>
 				<ZailaText style={styles.formLabel}>Name</ZailaText>
-				<ZailaTextInput placeholder="name" value={name} onChangeText={setName} />
+				<ZailaTextInput autoCapitalize="words" autoFocus placeholder="name" value={name} onChangeText={setName} />
 			</View>
 			<View style={styles.formControl}>
 				<ZailaText style={styles.formLabel}>Email</ZailaText>
-				<ZailaTextInput placeholder="example@zaila.ca" value={email} onChangeText={setEmail} />
+				<ZailaTextInput autoCapitalize="none" placeholder="example@zaila.ca" value={email} onChangeText={setEmail} />
 			</View>
 			<View style={styles.formControl}>
 				<ZailaText style={styles.formLabel}>Password</ZailaText>
-				<ZailaTextInput placeholder="*****" secureTextEntry={true} value={password} onChangeText={setPassword} />
+				<ZailaTextInput
+					autoCapitalize="none"
+					placeholder="*****"
+					secureTextEntry={true}
+					value={password}
+					onChangeText={setPassword}
+				/>
 				<ZailaText style={styles.passwordGuideline} weight="light">
 					Password must be 6 characters long
 				</ZailaText>

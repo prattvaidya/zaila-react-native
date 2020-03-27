@@ -69,7 +69,7 @@ const GPS = ({ address, setAddress }) => {
 					{location.coords ? (
 						<View style={styles.locationInfo}>
 							<ZailaText style={styles.location} weight="semiBold">
-								{address.city}, {address.region}
+								{address.city} - {address.region}
 							</ZailaText>
 						</View>
 					) : (
