@@ -11,20 +11,25 @@ const get = endpoint => {
 					}
 				})
 				.then(res => res.data.data)
-				.catch(err => console.log(err))
+				.catch(err => {
+					throw err
+				})
 		}
 	})
 }
 
-const post = (endpoint, data) => {
+const post = (endpoint, data, auth = '') => {
 	return axios
 		.post(endpoint, data, {
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${auth}`
 			}
 		})
 		.then(res => res.data)
-		.catch(err => console.log(err))
+		.catch(err => {
+			throw err
+		})
 }
 
 export { get, post }

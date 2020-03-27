@@ -2,12 +2,19 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 
 // Core components
-import ZailaText from 'zaila/src/core/ZailaText'
 import ZailaTextInput from 'zaila/src/core/ZailaTextInput'
 
-const SearchMuseums = () => (
+import { colors } from 'zaila/styles/global'
+
+const SearchMuseums = ({ searchQuery, setSearchQuery }) => (
 	<View style={styles.searchContainer}>
-		<ZailaTextInput placeholder="Search by museum name" style={styles.searchBox} />
+		<ZailaTextInput
+			onChangeText={setSearchQuery}
+			placeholder="Search by museum name"
+			placeholderTextColor="rgb(39,97,128)"
+			style={styles.searchBox}
+			value={searchQuery}
+		/>
 	</View>
 )
 
@@ -20,7 +27,7 @@ const styles = StyleSheet.create({
 		padding: 5,
 		borderWidth: 1,
 		backgroundColor: 'white',
-		borderColor: 'white'
+		color: colors.bdazzledBlue
 	}
 })
 

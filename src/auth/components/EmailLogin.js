@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, View } from 'react-native'
-import * as SecureStore from 'expo-secure-store'
+import { StyleSheet, View, Alert } from 'react-native'
 
 // Core components
 import ZailaText from 'zaila/src/core/ZailaText'
@@ -19,12 +18,16 @@ const EmailLogin = ({ onSuccess: authenticate }) => {
 	const handleSuccess = () => {
 		post('auth/login', { password: password, email: email })
 			.then(res => {
+				console.log('Login data', res)
 				if (res.user) {
-					SecureStore.setItemAsync('id_token', res.token)
-					authenticate()
+					authenticate(res.token)
 				}
 			})
-			.catch(err => console.log(err))
+			.catch(err => {
+				const errMsgs = err.response.data.errors.map(error => error.msg.charAt(0).toUpperCase() + error.msg.slice(1))
+				const errDesc = errMsgs.join(', ')
+				Alert.alert('Login Failed', errDesc)
+			})
 	}
 
 	return (
@@ -34,11 +37,23 @@ const EmailLogin = ({ onSuccess: authenticate }) => {
 			</ZailaText>
 			<View style={styles.formControl}>
 				<ZailaText style={styles.formLabel}>Email</ZailaText>
-				<ZailaTextInput placeholder="example@zaila.ca" value={email} onChangeText={setEmail} />
+				<ZailaTextInput
+					autoCapitalize="none"
+					autoFocus
+					placeholder="example@zaila.ca"
+					value={email}
+					onChangeText={setEmail}
+				/>
 			</View>
 			<View style={styles.formControl}>
 				<ZailaText style={styles.formLabel}>Password</ZailaText>
-				<ZailaTextInput placeholder="********" secureTextEntry={true} value={password} onChangeText={setPassword} />
+				<ZailaTextInput
+					autoCapitalize="none"
+					placeholder="********"
+					secureTextEntry={true}
+					value={password}
+					onChangeText={setPassword}
+				/>
 			</View>
 			<ZailaText style={styles.forgotPassword}>Forgot Password?</ZailaText>
 			<ZailaButton onPress={handleSuccess} style={styles.btnConfirm}>

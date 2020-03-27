@@ -57,7 +57,9 @@ const MuseumInfo = ({ museum }) => {
 		<SafeAreaView style={styles.container}>
 			<View style={styles.container}>
 				<View style={styles.header}>
-					<ZailaText style={styles.title}>{museum.name}</ZailaText>
+					<ZailaText style={styles.title} weight="bold">
+						{museum.name}
+					</ZailaText>
 					<ZailaText style={styles.addr}>
 						{museum.address} - {museum.city}, {museum.province}
 					</ZailaText>
@@ -79,25 +81,31 @@ const MuseumInfo = ({ museum }) => {
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: '#E5E5E5'
+		backgroundColor: '#E5E5E5',
+		paddingLeft: 15,
+		paddingRight: 15
 	},
 	header: {
 		paddingBottom: 10,
-		backgroundColor: colors.claret
+		backgroundColor: colors.claret,
+		borderBottomLeftRadius: 10,
+		borderBottomRightRadius: 10,
+		zIndex: 1
 	},
 	title: {
-		fontSize: 24,
+		fontSize: 20,
 		textAlign: 'center',
 		color: 'white'
 	},
 	addr: {
 		textAlign: 'center',
-		fontSize: 12,
+		fontSize: 14,
 		color: 'white'
 	},
 	headerInfo: {
 		flexDirection: 'row',
-		padding: 5
+		marginTop: -10,
+		zIndex: 0
 	},
 	timingContainer: {
 		justifyContent: 'center',
