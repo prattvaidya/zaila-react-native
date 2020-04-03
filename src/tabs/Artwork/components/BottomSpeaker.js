@@ -57,12 +57,14 @@ const BottomSpeaker = ({ title, artist, content, preferLang }) => {
               onPress={toggleSpeakControl}
               style={styles.speakControlBtn}
             >
-              <FontAwesome name="play-circle-o" size={30} color="#F79839" />
+              <FontAwesome name='play-circle-o' size={30} color='#F79839' />
             </TouchableWithoutFeedback>
-            <Image
-              style={styles.character}
-              source={require('zaila/assets/img/zaila-popup.png')}
-            />
+            <TouchableWithoutFeedback onPress={toggleSpeakControl}>
+              <Image
+                style={styles.character}
+                source={require('zaila/assets/img/zaila-popup.png')}
+              />
+            </TouchableWithoutFeedback>
           </>
         ) : (
           <>
@@ -70,12 +72,14 @@ const BottomSpeaker = ({ title, artist, content, preferLang }) => {
               onPress={toggleSpeakControl}
               style={styles.speakControlBtn}
             >
-              <FontAwesome name="pause-circle-o" size={30} color="#F79839" />
+              <FontAwesome name='pause-circle-o' size={30} color='#F79839' />
             </TouchableWithoutFeedback>
-            <Image
-              style={styles.character}
-              source={require('zaila/assets/img/zaila-music.png')}
-            />
+            <TouchableWithoutFeedback onPress={toggleSpeakControl}>
+              <Image
+                style={styles.character}
+                source={require('zaila/assets/img/zaila-music.png')}
+              />
+            </TouchableWithoutFeedback>
           </>
         )}
       </View>

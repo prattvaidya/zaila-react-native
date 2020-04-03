@@ -4,52 +4,55 @@ import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 // Core components
 import ZailaText from 'zaila/src/core/ZailaText';
 
-const CircleMenu = ({ currentMenu = 'Zaila', handleSwitchMenu }) => {
+const CircleMenu = ({ currentMenu = 'Zaila', handleSwitchMenu, position }) => {
   return (
     <>
-      <View style={styles.circleContainer}>
-        <Image
-          style={styles.userSnapshot}
-          source={require('zaila/assets/img/user-snapshot.png')}
-        />
-        <TouchableOpacity
-          style={styles.settings}
-          onPress={(e) => handleSwitchMenu('settings')}
-        >
+      <View style={{ backgroundColor: 'transparent' }}>
+        <View style={styles.circleContainer}>
+          <View style={[styles.activeMenu, position]}></View>
           <Image
-            style={{ width: 45, height: 45 }}
-            source={require('zaila/assets/img/profile-icons/settings.png')}
+            style={styles.userSnapshot}
+            source={require('zaila/assets/img/user-snapshot.png')}
           />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.zaila}
-          onPress={(e) => handleSwitchMenu('zaila')}
-        >
-          <Image
-            style={{ width: 45, height: 45 }}
-            source={require('zaila/assets/img/profile-icons/zaila-setting.png')}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.history}
-          onPress={(e) => handleSwitchMenu('history')}
-        >
-          <Image
-            style={{ width: 45, height: 50 }}
-            source={require('zaila/assets/img/profile-icons/history-normal.png')}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.badge}
-          onPress={(e) => handleSwitchMenu('badge')}
-        >
-          <Image
-            style={{ width: 30, height: 45 }}
-            source={require('zaila/assets/img/profile-icons/badge-normal.png')}
-          />
-        </TouchableOpacity>
-        <View style={styles.border1}></View>
-        <View style={styles.border2}></View>
+          <TouchableOpacity
+            style={styles.settings}
+            onPress={(e) => handleSwitchMenu('settings')}
+          >
+            <Image
+              style={{ width: 45, height: 45 }}
+              source={require('zaila/assets/img/profile-icons/settings.png')}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.zaila}
+            onPress={(e) => handleSwitchMenu('zaila')}
+          >
+            <Image
+              style={{ width: 45, height: 45 }}
+              source={require('zaila/assets/img/profile-icons/zaila-acitive.png')}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.history}
+            onPress={(e) => handleSwitchMenu('history')}
+          >
+            <Image
+              style={{ width: 45, height: 50 }}
+              source={require('zaila/assets/img/profile-icons/history-normal.png')}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.badge}
+            onPress={(e) => handleSwitchMenu('badge')}
+          >
+            <Image
+              style={{ width: 30, height: 45 }}
+              source={require('zaila/assets/img/profile-icons/badge-normal.png')}
+            />
+          </TouchableOpacity>
+          <View style={styles.border1}></View>
+          <View style={styles.border2}></View>
+        </View>
       </View>
       <ZailaText bold style={styles.currentMenuText}>
         {currentMenu}
@@ -70,7 +73,17 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     position: 'relative',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    overflow: 'hidden'
+  },
+  activeMenu: {
+    backgroundColor: '#F79839',
+    width: 125,
+    height: 125,
+    position: 'absolute',
+    zIndex: 2
+    // right: 0,
+    // top: 0
   },
   userSnapshot: {
     zIndex: 3
@@ -78,27 +91,32 @@ const styles = StyleSheet.create({
   settings: {
     position: 'absolute',
     top: 40,
-    left: 40
+    left: 40,
+    zIndex: 3
   },
   zaila: {
     position: 'absolute',
     top: 40,
-    right: 40
+    right: 40,
+    zIndex: 3
   },
   badge: {
     position: 'absolute',
     bottom: 40,
-    right: 45
+    right: 45,
+    zIndex: 3
   },
   history: {
     position: 'absolute',
     bottom: 38,
-    left: 40
+    left: 40,
+    zIndex: 3
   },
   currentMenuText: {
     color: '#276180',
     textTransform: 'capitalize',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginTop: 8
   },
   border1: {
     height: 2,
