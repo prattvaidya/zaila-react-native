@@ -73,8 +73,8 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'space-around',
 		alignItems: 'center',
-		paddingTop: 50,
-		paddingBottom: 50
+		paddingTop: 20,
+		paddingBottom: 20
 	},
 	zaila: {
 		height: 250,

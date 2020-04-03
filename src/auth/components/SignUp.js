@@ -78,7 +78,7 @@ export default SignUp
 const styles = StyleSheet.create({
 	container: {
 		// Spacing
-		padding: 20,
+		padding: 10,
 		width: '70%',
 
 		// Border
@@ -90,11 +90,11 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		color: colors.bdazzledBlue,
 		textAlign: 'center',
-		paddingBottom: 10
+		paddingBottom: 0
 	},
 	formControl: {
 		marginTop: 10,
-		marginBottom: 15
+		marginBottom: 0
 	},
 	formLabel: {
 		textAlign: 'center',
@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
 		color: colors.bdazzledBlue
 	},
 	btnConfirm: {
-		marginTop: 20
+		marginTop: 0,
+		marginBottom: 0
 	}
 })

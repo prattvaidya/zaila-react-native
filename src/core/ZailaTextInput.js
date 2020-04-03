@@ -39,6 +39,8 @@ const styles = StyleSheet.create({
 		borderColor: colors.seaBuckthorn,
 		padding: 7,
 		color: colors.claret,
-		opacity: 0.8
+		opacity: 0.8,
+		height: 24,
+		fontSize: 12
 	}
 })
