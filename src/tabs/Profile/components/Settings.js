@@ -6,9 +6,11 @@ import * as SecureStore from 'expo-secure-store'
 import ZailaText from 'zaila/src/core/ZailaText'
 import ZailaButton from 'zaila/src/core/ZailaButton'
 
-const Settings = () => {
+const Settings = ({ setSignedIn }) => {
 	const logout = () => {
 		SecureStore.deleteItemAsync('id_token')
+		console.log(setSignedIn)
+		setSignedIn(false)
 	}
 
 	return (

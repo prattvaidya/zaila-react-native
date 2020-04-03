@@ -65,7 +65,7 @@ export default function App() {
 						>
 							<Tab.Screen name="Home" component={HomeTab} />
 							<Tab.Screen name="Artwork" component={ArtworkTab} />
-							<Tab.Screen name="Profile" component={ProfileTab} />
+							<Tab.Screen name="Profile" component={ProfileTab} initialParams={{ setSignedIn: setSignedIn }} />
 						</Tab.Navigator>
 						<ScannerModal
 							setSensorId={setSensorId}
