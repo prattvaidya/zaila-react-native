@@ -1,5 +1,7 @@
+// React, React Native and Expo
 import React, { useState } from 'react'
 import { StyleSheet, View, Alert } from 'react-native'
+import * as Crypto from 'expo-crypto'
 
 // Core components
 import ZailaText from 'zaila/src/core/ZailaText'
@@ -15,8 +17,12 @@ const EmailLogin = ({ onSuccess: authenticate }) => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
-	const handleSuccess = () => {
-		post('auth/login', { password: password, email: email })
+	const handleSuccess = async () => {
+		// Encrypt the password
+		const encryptedPassword = await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, password)
+
+		// Login
+		post('auth/login', { password: encryptedPassword, email: email })
 			.then(res => {
 				console.log('Login data', res)
 				if (res.user) {

@@ -1,5 +1,7 @@
+// React, React Native and Expo
 import React, { useState } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
+import * as Crypto from 'expo-crypto'
 
 // Core components
 import ZailaText from 'zaila/src/core/ZailaText'
@@ -7,6 +9,7 @@ import ZailaTextInput from 'zaila/src/core/ZailaTextInput'
 import ZailaButton from 'zaila/src/core/ZailaButton'
 import SelectLanguage from 'zaila/src/core/SelectLanguage'
 
+// API
 import { post } from 'zaila/src/services/zaila-api.js'
 
 // Global Styles
@@ -18,11 +21,15 @@ const SignUp = ({ onSuccess: authenticate }) => {
 	const [password, setPassword] = useState('')
 	const [language, setLanguage] = useState('en-US')
 
-	const handleSuccess = () => {
+	const handleSuccess = async () => {
+		// Encrypt the password
+		const encryptedPassword = await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, password)
+
+		// Sign Up and then Login
 		post('auth/registerUser', {
-			user: { preferredLanguage: language, name: name, password: password, email: email, ageGroup: '1' }
+			user: { preferredLanguage: language, name: name, password: encryptedPassword, email: email, ageGroup: '1' }
 		})
-			.then(res => post('auth/login', { password: password, email: email }))
+			.then(res => post('auth/login', { password: encryptedPassword, email: email }))
 			.then(res => {
 				if (res.user) {
 					authenticate(res.token)
