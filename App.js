@@ -26,6 +26,9 @@ import { ZAILA_API_URL } from 'react-native-dotenv'
 import axios from 'axios'
 axios.defaults.baseURL = ZAILA_API_URL
 
+// Suppress warnings
+console.disableYellowBox = true
+
 const Tab = createBottomTabNavigator()
 
 export default function App() {
