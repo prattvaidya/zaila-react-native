@@ -37,7 +37,7 @@ const ZailaSettings = () => {
       <View style={styles.optionContainer}>
         <View style={styles.optionNameContainer}>
           <ZailaText bold style={styles.optionName}>
-            Language
+            Audio Language
           </ZailaText>
         </View>
         <View style={styles.optionContentContainer}>
