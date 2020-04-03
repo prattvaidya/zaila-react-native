@@ -19,7 +19,8 @@ const EmailLogin = ({ onSuccess: authenticate }) => {
 
 	const handleSuccess = async () => {
 		// Encrypt the password
-		const encryptedPassword = await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, password)
+		const encryptedPassword =
+			password.length > 0 ? await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, password) : password
 
 		// Login
 		post('auth/login', { password: encryptedPassword, email: email })
@@ -30,8 +31,15 @@ const EmailLogin = ({ onSuccess: authenticate }) => {
 				}
 			})
 			.catch(err => {
-				const errMsgs = err.response.data.errors.map(error => error.msg.charAt(0).toUpperCase() + error.msg.slice(1))
-				const errDesc = errMsgs.join(', ')
+				let errDesc
+				if (err.response.data.errorMessage) errDesc = err.response.data.errorMessage
+				else {
+					const errMsgs = err.response.data.errors
+						? err.response.data.errors.map(error => error.msg.charAt(0).toUpperCase() + error.msg.slice(1))
+						: err.response.errorMessage
+					errDesc = errMsgs.join(', ')
+				}
+
 				Alert.alert('Login Failed', errDesc)
 			})
 	}

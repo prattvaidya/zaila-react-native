@@ -23,7 +23,8 @@ const SignUp = ({ onSuccess: authenticate }) => {
 
 	const handleSuccess = async () => {
 		// Encrypt the password
-		const encryptedPassword = await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, password)
+		const encryptedPassword =
+			password.length > 0 ? await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, password) : password
 
 		// Sign Up and then Login
 		post('auth/registerUser', {
@@ -31,11 +32,13 @@ const SignUp = ({ onSuccess: authenticate }) => {
 		})
 			.then(res => post('auth/login', { password: encryptedPassword, email: email }))
 			.then(res => {
+				console.log('Sign up success', res)
 				if (res.user) {
 					authenticate(res.token)
 				}
 			})
 			.catch(err => {
+				console.log('Sign up err', err)
 				const errMsgs = err.response.data.errors.map(error => error.msg.charAt(0).toUpperCase() + error.msg.slice(1))
 				const errDesc = errMsgs.join(', ')
 				Alert.alert('Signup Failed', errDesc)
