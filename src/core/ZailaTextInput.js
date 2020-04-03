@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
 		borderWidth: 1.5,
 		borderRadius: 30,
 		borderColor: colors.seaBuckthorn,
-		padding: 7,
+		paddingLeft: 5,
 		color: colors.claret,
 		opacity: 0.8,
 		height: 24,
