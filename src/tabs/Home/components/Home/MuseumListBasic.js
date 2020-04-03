@@ -5,10 +5,26 @@ import { get } from 'zaila/src/services/zaila-api.js'
 // Core components
 import ZailaText from 'zaila/src/core/ZailaText'
 
+// Categories
+import Anthropology from 'zaila/assets/img/categories/museum/Anthropology.png'
+import Art from 'zaila/assets/img/categories/museum/Art.png'
+import History from 'zaila/assets/img/categories/museum/History.png'
+import Science from 'zaila/assets/img/categories/museum/Science.png'
+
 import { colors } from 'zaila/styles/global'
 
 const MuseumList = ({ city, navigation, searchQuery }) => {
 	const [museums, setMuseums] = useState([])
+
+	const categories = [
+		{
+			name: 'Anthropology',
+			img: Anthropology
+		},
+		{ name: 'Art', img: Art },
+		{ name: 'History', img: History },
+		{ name: 'Science', img: Science }
+	]
 
 	useEffect(() => {
 		if (city) {
@@ -46,11 +62,14 @@ const MuseumList = ({ city, navigation, searchQuery }) => {
 										<View style={[styles.museumInfo]}>
 											<View style={[styles.museumImgWrapper]}>
 												<Image style={styles.museumImg} source={{ uri: museum.imageURL }} />
-												{museum.museum_category.imageURL ? (
-													<Image style={[styles.museumCategoryImg]} source={{ uri: museum.museum_category.imageURL }} />
-												) : (
-													<></>
-												)}
+
+												<View style={styles.museumCategoryWrapper}>
+													<Image
+														source={
+															categories.find(category => category.name === museum.museum_category.categoryName).img
+														}
+													/>
+												</View>
 											</View>
 											<View style={[styles.museumDescWrapper]}>
 												{/* <ZailaText style={styles.paraTextSize}>{museum.description}</ZailaText>
@@ -117,7 +136,7 @@ const styles = StyleSheet.create({
 		borderWidth: 1.5,
 		borderColor: colors.seaBuckthorn
 	},
-	museumCategoryImg: {
+	museumCategoryWrapper: {
 		width: 36,
 		height: 36,
 		borderRadius: 18,
@@ -125,7 +144,11 @@ const styles = StyleSheet.create({
 		borderColor: colors.seaBuckthorn,
 		position: 'absolute',
 		left: 0,
-		bottom: 0
+		bottom: 0,
+		backgroundColor: colors.negroni,
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center'
 	},
 	museumDescWrapper: {
 		backgroundColor: '#E5E5E5',
