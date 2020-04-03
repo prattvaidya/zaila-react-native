@@ -12,6 +12,12 @@ import ZailaText from 'zaila/src/core/ZailaText'
 import Loading from 'zaila/src/shared/Loading'
 import MuseumInfo from 'zaila/src/tabs/Home/components/MuseumDetail/MuseumInfo'
 
+// Categories
+import Astronomy from 'zaila/assets/img/categories/exhibition/Astronomy.png'
+import Artwork from 'zaila/assets/img/categories/exhibition/Artwork.png'
+import Nature from 'zaila/assets/img/categories/exhibition/Nature.png'
+import Photography from 'zaila/assets/img/categories/exhibition/Photography.png'
+
 // Other
 import { formatDate } from 'zaila/src/shared/Helper'
 import { colors } from 'zaila/styles/global'
@@ -19,6 +25,16 @@ import { colors } from 'zaila/styles/global'
 const MuseumDetail = ({ route, navigation }) => {
 	const [museum, setMuseum] = useState(undefined)
 	const [museumInfo, setMuseumInfo] = useState(undefined)
+
+	const categories = [
+		{
+			name: 'Astronomy',
+			img: Astronomy
+		},
+		{ name: 'Artwork', img: Artwork },
+		{ name: 'Nature', img: Nature },
+		{ name: 'Photography', img: Photography }
+	]
 
 	useEffect(() => {
 		get(`api/museum/${route.params.museumId}`)
@@ -71,8 +87,15 @@ const MuseumDetail = ({ route, navigation }) => {
 								</View>
 								<View style={[styles.exhibitionInfo]}>
 									<View style={[styles.exhibitionImgWrapper]}>
+										{console.log('Exhibition Category', exhibition.exhibition_category)}
 										<Image style={styles.exhibitionImg} source={{ uri: exhibition.imageURL }} />
-										<Image style={styles.exhibitionCatImg} source={{ uri: exhibition.exhibition_category.imageURL }} />
+										<View style={styles.exhibitionCatImg}>
+											<Image
+												source={
+													categories.find(category => category.name === exhibition.exhibition_category.categoryName).img
+												}
+											/>
+										</View>
 									</View>
 									<View style={[styles.exhibitionDescWrapper]}>
 										<ZailaText style={[styles.exhibitionDate]} weight="light">
@@ -162,7 +185,11 @@ const styles = StyleSheet.create({
 		position: 'absolute',
 		left: 0,
 		bottom: 0,
-		zIndex: 6
+		zIndex: 6,
+		backgroundColor: colors.negroni,
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center'
 	},
 	exhibitionDescWrapper: {
 		backgroundColor: 'white',

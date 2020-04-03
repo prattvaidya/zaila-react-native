@@ -1,5 +1,7 @@
+// React, React Native and Expo
 import React, { useState } from 'react'
 import { StyleSheet, View, Alert } from 'react-native'
+import * as Crypto from 'expo-crypto'
 
 // Core components
 import ZailaText from 'zaila/src/core/ZailaText'
@@ -15,8 +17,13 @@ const EmailLogin = ({ onSuccess: authenticate }) => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
-	const handleSuccess = () => {
-		post('auth/login', { password: password, email: email })
+	const handleSuccess = async () => {
+		// Encrypt the password
+		const encryptedPassword =
+			password.length > 0 ? await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, password) : password
+
+		// Login
+		post('auth/login', { password: encryptedPassword, email: email })
 			.then(res => {
 				console.log('Login data', res)
 				if (res.user) {
@@ -24,8 +31,15 @@ const EmailLogin = ({ onSuccess: authenticate }) => {
 				}
 			})
 			.catch(err => {
-				const errMsgs = err.response.data.errors.map(error => error.msg.charAt(0).toUpperCase() + error.msg.slice(1))
-				const errDesc = errMsgs.join(', ')
+				let errDesc
+				if (err.response.data.errorMessage) errDesc = err.response.data.errorMessage
+				else {
+					const errMsgs = err.response.data.errors
+						? err.response.data.errors.map(error => error.msg.charAt(0).toUpperCase() + error.msg.slice(1))
+						: err.response.errorMessage
+					errDesc = errMsgs.join(', ')
+				}
+
 				Alert.alert('Login Failed', errDesc)
 			})
 	}
