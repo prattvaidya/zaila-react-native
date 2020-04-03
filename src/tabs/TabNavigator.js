@@ -131,7 +131,8 @@ const styles = StyleSheet.create({
 		left: 6
 	},
 	Home: {
-		bottom: 100,
+		bottom: 105,
+		left: 15,
 		borderWidth: 2,
 		borderColor: colors.seaBuckthorn
 	},
@@ -142,8 +143,8 @@ const styles = StyleSheet.create({
 		borderColor: colors.seaBuckthorn
 	},
 	Profile: {
-		left: 85,
-		bottom: 0,
+		left: 90,
+		bottom: 10,
 		borderWidth: 2,
 		borderColor: colors.seaBuckthorn
 	}
