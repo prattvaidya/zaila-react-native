@@ -3,7 +3,7 @@ import {
   View,
   Image,
   StyleSheet,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
 } from 'react-native';
 import * as Speech from 'expo-speech';
 
@@ -35,10 +35,10 @@ const BottomSpeaker = ({ title, artist, content, preferLang }) => {
     const thingToSay = content;
     Speech.speak(thingToSay, {
       language: languageCode,
-      rate: 0.9,
+      rate: 1,
       onDone: () => {
         setIsPlaying(false);
-      }
+      },
     });
   };
 
@@ -97,34 +97,34 @@ const styles = StyleSheet.create({
     borderColor: '#F79839',
     borderRadius: 40,
     justifyContent: 'center',
-    marginBottom: 8
+    marginBottom: 8,
   },
   leftPart: {
     paddingLeft: 8,
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   title: {
     textAlign: 'center',
     color: '#276180',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   textInfo: {
     textAlign: 'center',
-    color: '#276180'
+    color: '#276180',
   },
   rightPart: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   speakControlBtn: {},
   character: {
     width: 60,
     height: 60,
-    marginRight: -5
+    marginRight: -5,
     // marginBottom: -5
-  }
+  },
 });
 
 export default BottomSpeaker;
