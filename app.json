@@ -1,26 +1,33 @@
 {
-	"expo": {
-		"name": "zaila-react-native",
-		"slug": "zaila-react-native",
-		"privacy": "public",
-		"sdkVersion": "36.0.0",
-		"platforms": ["ios", "android", "web"],
-		"version": "1.0.0",
-		"orientation": "portrait",
-		"icon": "./assets/img/appstore.png",
-		"splash": {
-			"image": "./assets/img/zaila.png",
-			"resizeMode": "contain",
-			"backgroundColor": "#ffffff"
-		},
-		"updates": {
-			"fallbackToCacheTimeout": 0
-		},
-		"assetBundlePatterns": ["**/*"],
-		"ios": {
-			"supportsTablet": true,
-			"bundleIdentifier": "com.zaila-app.zaila",
-			"buildNumber": "1.0.0"
-		}
-	}
+  "expo": {
+    "name": "zaila",
+    "slug": "zaila",
+    "privacy": "public",
+    "sdkVersion": "36.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/img/appstore.png",
+    "splash": {
+      "image": "./assets/img/zaila.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.zaila-app.zaila",
+      "buildNumber": "1.0.0"
+    },
+    "description": "Zaila is an app for museum visitors to listen to audio descriptions of the artifacts on their own smartphone. Visitors can scan a QR code next to an artifact in a museum to know about it. Zaila offers audio descriptions in 4 languages: English, French, Spanish and Chinese which makes it accessible for international visitors."
+  }
 }
